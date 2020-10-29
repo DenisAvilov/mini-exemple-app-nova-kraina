@@ -2,7 +2,7 @@
   "name": "exemple-app-nova-kraina",
   "version": "0.1.0",
   "private": true,
-  
+  "homepage": "https://denisavilov.github.io/mini-exemple-app-nova-kraina",
   "dependencies": {
     "@fullpage/react-fullpage": "^0.1.17",
     "@material-ui/core": "^4.11.0",
