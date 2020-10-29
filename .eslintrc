@@ -1,0 +1,24 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+    "@typescript-eslint",
+    "no-loops"
+    ],
+    "extends": [
+        "eslint:recommended",       
+        "eslint:recommended", "google"
+    ],
+    "rules": {
+        "@typescript-eslint/no-unused-vars":"off",
+        "no-loops/no-loops":2,
+        "require-jsdoc":0, 
+        "no-undef":"off",
+        "object-curly-spacing":"off",
+        "semi":"off",
+        "linebreak-style":"off",
+        "operator-linebreak": "off",
+        "prefer-const": "off" 
+        
+    }
+}
