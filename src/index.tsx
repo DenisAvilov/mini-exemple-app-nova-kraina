@@ -6,12 +6,12 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import {MuiThemeProvider } from '@material-ui/core/styles'
 import theme from './themeStyles'
-const optionalString = '//localhost:3000';
+// const optionalString = '//localhost:3000';
 
 console.log( theme, ' theme')
 
 ReactDOM.render(
-    <React.StrictMode><BrowserRouter basename={optionalString}>
+    <React.StrictMode><BrowserRouter basename={process.env.PUBLIC_URL}>
       <MuiThemeProvider theme={theme}><App /></MuiThemeProvider></BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')

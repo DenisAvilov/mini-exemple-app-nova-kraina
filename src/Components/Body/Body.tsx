@@ -281,7 +281,7 @@ export const Body: React.FC<BodyTS> = () => {
                         fullpageApi.moveSectionDown()
                       } }>
                         <ArrowDownwardIcon className={classes.extendedIcon} />
-                який перелік функції?
+                який перелік функцій?
                       </Fab>
                     </Grid>
                   </Grid>
@@ -456,7 +456,15 @@ export const Body: React.FC<BodyTS> = () => {
                     <Grid container item xs={12} sm={12} justify={'center'}>
                       <Paper className={classes.paper}>
                         <Typography variant="h5" align='center'>
-                        Ми як громадяни України, згідно 11 ст. К.У. маємо право самоорганізовуватися,
+                        Ми як громадяни України, згідно
+                          <a href='https://youtu.be/4xqZL9UNQmA'target="_blank" className={classes.a}> 5 </a>,
+                          <a href='https://youtu.be/Gu61DUmFmL4'target="_blank" className={classes.a}> 7 </a>,
+                          <a href='https://youtu.be/-YWTnJ-gClU'target="_blank" className={classes.a}> 13 </a>,
+                          <a href='https://youtu.be/-xjNEzk4B7E'target="_blank" className={classes.a}> 140 </a>,
+                          <a href='https://youtu.be/bs87kD65l-E'target="_blank" className={classes.a}> 141 </a>,
+                          <a href='https://youtu.be/5qDxb69SClw'target="_blank" className={classes.a}> 142 </a>,
+                          <a href='https://youtu.be/2GYYD76ZWss'target="_blank" className={classes.a}> 143 </a>,
+                            ст. К.У. маємо право самоорганізовуватися,
                         створювати органи місцевого самоврядування,
                         і реалізовувати через них, на зборах свої права.<br/>
                         Регулярна участь у прийнятті рішень за місцем проживання шляхом голосування онлайн,
@@ -484,10 +492,10 @@ export const Body: React.FC<BodyTS> = () => {
                     <Grid item xs={12} sm={8}>
                       <Paper className={classes.paper}>
                         <Typography variant="h5" align='center'>Спільне прийняття рішень має здійснюватися,
-через голосування на порядку денному може бути абсолютно будь-які питання що стосується ЖКГ та й питань місцевого самоуправління.
+через голосування на порядку денному може бути абсолютно будь-які питання що стосується ЖКГ та й питань місцевого самоврядування.
 Результатом голосувань буде протокол зборів громадян сформований автоматичним чином.
 Кожен учасник перед голосуванням отримує повний перелік питань і пропозицій у формі відповідній до Конституції України.
-Таким чином, вирішує де требо, наприклад: "пиляти або саджати" люди почнуть углибляться в правове поле глибше вивчаючи свої законні права і отримають механізм цими правами користуватись.
+Таким чином, вирішує де треба, наприклад: "пиляти або саджати" люди почнуть роглиблюватись в правове поле глибше вивчаючи свої законні права і отримають механізм цими правами користуватись.
                         </Typography>
                       </Paper><br/>
                       <Paper className={classes.paper}>
@@ -577,10 +585,10 @@ export const Body: React.FC<BodyTS> = () => {
                     <Grid item xs={12} sm={8}>
                       <Paper className={classes.paper}>
                         <Typography variant="h5" align='center'>Спільне прийняття рішень має здійснюватися,
-                          через голосування на порядку денному може бути абсолютно будь-які питання що стосується ЖКГ та й питань місцевого самоуправління.
+                          через голосування на порядку денному може бути абсолютно будь-які питання що стосується ЖКГ та й питань місцевого самоврядування.
                           Результатом голосувань буде протокол зборів громадян сформований автоматичним чином.
                           Кожен учасник перед голосуванням отримує повний перелік питань і пропозицій у формі відповідній до Конституції України.
-                          Таким чином, вирішує де требо, наприклад: "пиляти або саджати" люди почнуть углибляться в правове поле глибше вивчаючи свої законні права і отримають механізм цими правами користуватись.
+                          Таким чином, вирішує де треба, наприклад: "пиляти або саджати" люди почнуть углибляться в правове поле глибше вивчаючи свої законні права і отримають механізм цими правами користуватись.
                         </Typography>
                       </Paper><br/>
                       <Paper className={classes.paper}>
@@ -614,9 +622,8 @@ export const Body: React.FC<BodyTS> = () => {
                     <Typography align="center" variant="h1" className={classes.titleFonts} >Потрібен розголос</Typography>
 
                     <Typography align='center' variant='button' component="h2" className={classes.myTypography} >
-                    Все залежіть від нас  <br/>
-                    Пам'ятай, що Ковчег змайструв любитель, а
-                    титанік професіонали.
+                    Кожен з нас хто змінює себе, той змінює світ <br/>
+                    
                       <br/>
                             Чим я можу бути корисним?
                     </Typography>
@@ -625,7 +632,7 @@ export const Body: React.FC<BodyTS> = () => {
                         fullpageApi.moveSlideRight()
                       } }>
                         <ArrowForward className={classes.extendedIcon} />
-                        детально
+                        допомогти
                       </Fab>
                     </Grid>
                   </Grid>
@@ -640,12 +647,14 @@ export const Body: React.FC<BodyTS> = () => {
                         Якщо ти звичайний користувач соціальної мережі, зареєструйся у спільноті <a href='https://www.facebook.com/novakraina.pp.ua' className={classes.a}> Smart Ukraine </a> у facebook
                           , цє допоможе врахувати потрєбу цього продукту. <br/> <br/>
                           Якщо ти бажаєш долучитись до розробки цієї мережі або висловитись, прокоментувати,
-                          запропонувати щось, тоді реєструйся у групі <a href='https://www.facebook.com/groups/900034500492310/' className={classes.a}> Українська Соціальна Мережа Громад </a> сторінки Smart Ukraine
+                          запропонувати щось, тоді реєструйся у групі
+                          <a href='https://www.facebook.com/groups/900034500492310/' className={classes.a}> Українська Соціальна Мережа Громад </a> сторінки
+                          <a href='https://www.facebook.com/novakraina.pp.ua' className={classes.a}> Smart Ukraine </a>
 
                           <br/> <br/>
                           А також реєструйтесь на цьому сайті, цей ресурс буде міні прототипом мережі
                           <br/> <br/>
-                          Величезна подяка свідомим Українцям які надихають та відчиняють завісу масової бессознательності,
+                          Величезна подяка свідомим Українцям які надихають та відчиняють завісу масової безсвідомості,
                           за ради спільної мети - мати достойне життя у своїй країні. <br/> <br/>
                           <a href="http://bagnetnacii.blogspot.com/">ГО ОПГ "Багнет Нації"</a> <br/>
                           <a href="https://budmo.in.ua/">Школа Конституції</a> <br/>
