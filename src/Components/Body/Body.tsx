@@ -632,7 +632,7 @@ export const Body: React.FC<BodyTS> = () => {
                         fullpageApi.moveSlideRight()
                       } }>
                         <ArrowForward className={classes.extendedIcon} />
-                        допомогти
+                        дізнатись
                       </Fab>
                     </Grid>
                   </Grid>
