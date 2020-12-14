@@ -5,8 +5,10 @@ import { BodyContainer } from './Components/Body/BodyContainer'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Route, Switch } from 'react-router-dom'
 import { HeaderContainer } from './Components/Header/HeaderContainer'
-import { LoginContainer } from './Components/LoginBase/LoginContainer'
-import SignUp from './Components/LoginBase/SignUp'
+import LoginContainer from './Components/LoginBase/LoginContainer'
+import {SignUp} from './Components/LoginBase/SignUp'
+import { connect } from 'react-redux'
+import { RootReducerType } from './redux/redux'
 
 const useStyles = makeStyles( (theme: Theme) => createStyles( {
   root: {
@@ -14,7 +16,7 @@ const useStyles = makeStyles( (theme: Theme) => createStyles( {
   },
 }))
 
-const App: React.FC<appTs> = () => {
+const App: React.FC<{}> = () => {
   const classes = useStyles()
 
   return (
@@ -37,9 +39,8 @@ const App: React.FC<appTs> = () => {
   );
 };
 
-type appTs = {}
-export default App;
+
+export default App
 // type AppRouteTS = {}
 // const AppRoute: React.FC<AppRouteTS> = () => {
-
 // }

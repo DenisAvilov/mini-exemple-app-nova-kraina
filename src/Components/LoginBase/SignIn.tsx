@@ -12,10 +12,21 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import NavigationIcon from '@material-ui/icons/Navigation';
 import { NavLink } from 'react-router-dom';
+import { Formik, Form, ErrorMessage, FastField } from 'formik'
+import { useDispatch } from 'react-redux';
+import userEmail, { sanAuthMailIn } from './../../redux/auth_users_email'
 
+
+type InitialValuesTsIn = {
+  email?: string | null,
+  password?: string | null,
+  controlLabel?: boolean,
+}
+type PropsSignIn = {
+  email?: string | null,
+  sanAuthMailIn: ( email?: string | null, password?: string | null, controlLabel?: boolean, ) => void,
+  }
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -28,7 +39,6 @@ function Copyright() {
     </Typography>
   );
 }
-
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -64,10 +74,27 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
   },
 }));
-
-export default function SignIn() {
+const validate = (values: InitialValuesTsIn) => {
+  let error: InitialValuesTsIn = {}
+  if (!values.password ) {
+    error.password = 'Обов\'язкове поле'
+  }
+  if (!values.email) {
+    error.email = 'Обов\'язкове поле'
+  } else if
+  (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    error.email = 'Невірна адреса електронної пошти';
+  }
+  return error
+}
+export const SignIn:React.FC< PropsSignIn > = (props: PropsSignIn) => {
+  let {email} = props
   const classes = useStyles();
-
+  // const dispatch = useDispatch()
+  const onSubmit = (values: InitialValuesTsIn) => {
+    props.sanAuthMailIn(values.email, values.password, values.controlLabel)
+    // dispatch(props.sanAuthMailIn(values.email, values.password, values.controlLabel))
+  }
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -80,60 +107,98 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Увійти
           </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Запам'ятати мене"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
+          <Formik
+            initialValues = { {email: '', password: '', controlLabel: false} }
+            validate = {validate}
+            onSubmit = { onSubmit }
+          >
+            { (formik) => {
+              return (
+                <Form className={classes.form}>
+                  <FastField name="email">
+                    {(props : any) => {
+                      return <div>
+                        <TextField
+                          variant="outlined"
+                          margin="normal"
+                          type="email"
+                          {...props.field}
+                          required
+                          fullWidth
+                          label="Пошта"
+                          autoComplete="email"
+                          autoFocus
+                        />
+                        <ErrorMessage name="email">
+                          {(errorMsg) => <div className="error"> {errorMsg} </div>}
+                        </ErrorMessage>
+
+                      </div>
+                    }
+                    }
+                  </FastField>
+                  <FastField name="password">
+                    { (props: any) => {
+                      return (
+                        <React.Fragment>
+                          <TextField
+                            variant="outlined"
+                            margin="normal"
+                            {...props.field}
+                            required
+                            fullWidth
+                            label="Пароль"
+                            type="password"
+                            autoComplete="current-password"
+                          />
+                          <ErrorMessage name="password">
+                            {(errorMsg) => <div className="error"> {errorMsg} </div>}</ErrorMessage>
+                        </React.Fragment>
+                      )
+                    }}
+                  </FastField>
+                  <FastField name="controlLabel">
+                    { (props: any) => {
+                      return ( <FormControlLabel
+                        control={<Checkbox value="remember" color="primary" />}
+                        {...props.field}
+                        label="Запам'ятати мене"
+                      />)
+                    }}
+                  </FastField>
+
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                  >
               Увійти
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
+                  </Button>
+                  <Grid container>
+                    <Grid item xs>
+                      <Link href="#" variant="body2">
                   Загубили пароль?
-                </Link>
-              </Grid>
-              <Grid item>
-                <NavLink to="/signup"> 
-                  {/* <Link href="/signup" variant="body2"> */}
-                    {'Не маете аккаунту? Створити'}
-                  {/* </Link> */}
-                 </NavLink> 
-              </Grid>
-            </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
-          </form>
+                      </Link>
+                    </Grid>
+                    <Grid item>
+                      <NavLink to="/signup">
+                        {/* <Link href="/signup" variant="body2"> */}
+                        {'Не маете аккаунту? Створити'}
+                        {/* </Link> */}
+                      </NavLink>
+                    </Grid>
+                  </Grid>
+                  <Box mt={5}>
+                    <Copyright />
+                    <div>{email}</div>
+                  </Box>
+                </Form>
+              )
+            }}
+
+          </Formik>
         </div>
       </Grid>
 
