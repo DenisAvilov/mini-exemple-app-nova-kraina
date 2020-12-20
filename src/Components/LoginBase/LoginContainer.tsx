@@ -6,7 +6,15 @@ import { SignIn} from './SignIn'
 
 
 class LoginContainer extends React.Component<LoginAllTypes> {
-
+ 
+  constructor(props: any) {
+    super(props)
+    // let { match } = this.props
+    console.log('match ',)
+  }
+  componentDidMount() {
+    // console.log(this.props.match.params.userId)
+  }
   render() {
     return <SignIn sanAuthMailIn={this.props.sanAuthMailIn} email={this.props.email}/>
   }
@@ -28,5 +36,4 @@ export default connect( mapStateToProps,
          email?: string | null
     }
     type OwnType = {}
-    type LoginAllTypes = MapStateToProps & MapDispath & OwnType
-
+    type LoginAllTypes = MapStateToProps & MapDispath

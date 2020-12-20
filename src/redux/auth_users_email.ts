@@ -1,10 +1,11 @@
 
-import authMail from '../API/authMail'
+
+import authMail, { ErrorEnumSingIn } from '../API/authMail'
 import { interLiteralString } from '../fanction_helps/literalFromString'
 import { ActionTypes, BaseActionType } from './redux'
 // const AUTH_USERS_EMAIL_UP = 'NOVA-KRAINA/AUTH-USERS-EMAIL-UP'
 const AUTH_USERS_EMAIL_IN = 'NOVA-KRAINA/AUTH-USERS-EMAIL-IN'
-const SET_SUBMITTING = 'SET_SUBMITTING'
+
 
 type InitialValuesTsIn = {
   email?: string | null,
@@ -43,9 +44,15 @@ export const sanAuthMailIn = (
     email?: string | null,
     password?: string | null,
     controlLabel?: boolean) :ThunkType => async (distpath) => {
-
   let result = await authMail.addUserAuthMail(email, password, controlLabel)
-  console.log(result)
+  console.log('data ', result)
+  if (result == 'EMAIL_NOT_FOUND') {
+    alert('EMAIL_NOT_FOUND')
+  } else if ( result == 'INVALID_PASSWORD') {
+    alert('INVALID_PASSWORD')
+  } else if ( result == 'INVALID_PASSWORD') {
+    alert('INVALID_PASSWORD')
+  }
 }
 
 

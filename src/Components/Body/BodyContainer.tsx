@@ -12,7 +12,7 @@ export class BodyContainer extends React.Component<initiales> {
   render() {
     return ( <>
       {/* <Body /> */}
-      <Profile />
+        <Profile />
     </> )
   }
 }

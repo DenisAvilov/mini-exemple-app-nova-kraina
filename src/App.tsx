@@ -6,9 +6,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import { Route, Switch } from 'react-router-dom'
 import { HeaderContainer } from './Components/Header/HeaderContainer'
 import LoginContainer from './Components/LoginBase/LoginContainer'
-import {SignUp} from './Components/LoginBase/SignUp'
-import { connect } from 'react-redux'
-import { RootReducerType } from './redux/redux'
+import LoginUpContainer from './Components/LoginBase/LoginUpContainer'
+
 
 const useStyles = makeStyles( (theme: Theme) => createStyles( {
   root: {
@@ -16,15 +15,16 @@ const useStyles = makeStyles( (theme: Theme) => createStyles( {
   },
 }))
 
+
 const App: React.FC<{}> = () => {
   const classes = useStyles()
 
   return (
     <div className={classes.root}>
       {/* <CssBaseline /> */}
+      <Route path="/signup" render={ ()=> ( <LoginUpContainer /> )}/>
+      <Route path="/signin" render={ () => ( <LoginContainer /> )} />
       <Switch>
-        <Route path="/signup" render={ ()=> ( <SignUp /> )}/>
-        <Route path="/signin" render={ () => ( <LoginContainer /> )} />
         <Route exact path="/" render={ () =>
           <React.Fragment>
             <Container maxWidth="lg" className={classes.root}>

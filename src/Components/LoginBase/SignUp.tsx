@@ -15,17 +15,16 @@ import Container from '@material-ui/core/Container'
 import { Formik, Form, ErrorMessage, Field } from 'formik'
 
 
+type LoginUpTS = {
+  sanAuthUpEmail: (dataUser: AuthUpEmailTS ) => void
+}
 
-
-type LoginUpTS = {}
-
-export type initialValuesAuthUserMail = {
+ type AuthUpEmailTS = {
   firstName?: string | null,
   lastName?: string| null,
   email?: string| null,
   password?: string| null,
-  controlLabel?: boolean
-
+  getInspired?: boolean
 }
 
 function Copyright() {
@@ -68,9 +67,10 @@ const jsUcfirst = (strring: any ) => {
   return strring?.trim()[0].toUpperCase() + strring.trim()?.slice(1)
 }
 export const SignUp: React.FC<LoginUpTS> = (props: LoginUpTS) => {
+  const { sanAuthUpEmail } = props
   const classes = useStyles()
-  const validate = (values:initialValuesAuthUserMail): {} => {
-    let error: initialValuesAuthUserMail = {}
+  const validate = (values: AuthUpEmailTS): {} => {
+    let error: AuthUpEmailTS = {}
 
     if (!values.firstName) {
       error.firstName = 'Обов\'язкове поле';
@@ -96,11 +96,8 @@ export const SignUp: React.FC<LoginUpTS> = (props: LoginUpTS) => {
 
     return error;
   }
-  const onSubmit = (values: initialValuesAuthUserMail) => {
-    values.firstName = jsUcfirst(values.firstName)
-    values.lastName = jsUcfirst(values.lastName)
-    debugger
-    // dispatch(values)
+  const onSubmit = (values: AuthUpEmailTS) => {
+    sanAuthUpEmail(values)
   }
 
   return (
@@ -114,7 +111,7 @@ export const SignUp: React.FC<LoginUpTS> = (props: LoginUpTS) => {
           Зареєструйтесь
         </Typography>
         <Formik
-          initialValues = {{firstName: '', lastName: '', email: '', password: '', controlLabel: false}}
+          initialValues = {{firstName: '', lastName: '', email: '', password: '', getInspired: false}}
           validate = {validate}
           onSubmit = { onSubmit }
         >
