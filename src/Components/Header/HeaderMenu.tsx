@@ -15,7 +15,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Avatar from '@material-ui/core/Avatar';
 
 import Grid from '@material-ui/core/Grid';
-import {  NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 // import theme from '../../themeStyles';
 import { CardMedia } from '@material-ui/core';
 
@@ -23,6 +23,7 @@ const useStyles = makeStyles( (theme: Theme) => createStyles( {
   root: {
     height: 60,
     padding: '10px 0',
+    backgroundColor: theme.palette.background.default,
     left: 0,
     position: 'absolute',
     top: 0,
@@ -68,7 +69,7 @@ const useStyles = makeStyles( (theme: Theme) => createStyles( {
 
 type Anchor = 'right';
 
-export default function HeaderMenu() {
+export default function HeaderMenu(props: {isOpen: boolean, sanLogout: () => void}) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     right: false,
@@ -96,7 +97,17 @@ export default function HeaderMenu() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <NavLink to="/signin"
+        {props.isOpen
+        ? <NavLink to="/signin"
+          style={{
+            textDecoration: 'none',
+          }}>
+          <ListItem button>
+            <ListItemIcon> <InboxIcon />  </ListItemIcon>
+            <ListItemText secondary="Вихід" onClick={ () => props.sanLogout()}/>
+          </ListItem>
+        </NavLink>
+        : <NavLink to="/signin"
           style={{
             textDecoration: 'none',
           }}>
@@ -104,7 +115,8 @@ export default function HeaderMenu() {
             <ListItemIcon> <InboxIcon />  </ListItemIcon>
             <ListItemText secondary="Вхід"/>
           </ListItem>
-        </NavLink>
+        </NavLink> }
+        { props.isOpen ?
         <NavLink to="/about"
           style={{
             textDecoration: 'none',
@@ -114,6 +126,7 @@ export default function HeaderMenu() {
             <ListItemText secondary={'Про мене'} />
           </ListItem>
         </NavLink>
+        : '' }
       </List>
 
       <Divider />
@@ -126,7 +139,7 @@ export default function HeaderMenu() {
       />
     </div>
   );
-
+  console.log('hesder ', props.isOpen)
   return (
     <Grid container alignItems={'center'} className={classes.root}>
       <Grid item sm xs container alignItems="center" >
@@ -140,8 +153,7 @@ export default function HeaderMenu() {
         </Grid>
       </Grid>
       <Grid item sm xs container justify="flex-end" className={classes.burgerElement}>
-
-        {/* <Avatar src="/broken-image.jpg" /> */}
+        {props.isOpen ? <Avatar src="/broken-image.jpg" /> : '' }
         <Button onClick={toggleDrawer('right', true)}><MenuIcon className={classes.colorThem}/></Button>
         <Drawer anchor={'right'} open={state['right']} onClose={toggleDrawer('right', false)}>
           {list('right')}

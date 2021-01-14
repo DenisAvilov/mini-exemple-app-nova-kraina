@@ -1,7 +1,27 @@
+
 import axios from 'axios'
+import firebase from 'firebase'
+const firebaseConfig = {
+  apiKey: 'AIzaSyBaErRBkUh5q1lbTgTP9fvPBlI3ZrQlnAE',
+  authDomain: 'nova-kraina-social-net.firebaseapp.com',
+  databaseURL: 'https://nova-kraina-social-net-default-rtdb.firebaseio.com',
+  projectId: 'nova-kraina-social-net',
+  storageBucket: 'nova-kraina-social-net.appspot.com',
+  messagingSenderId: '602098551380',
+  appId: '1:602098551380:web:29ee8626fb6ff3f3cf7bc1',
+  measurementId: 'G-TVE63Q61KX',
+}
+firebase.initializeApp(firebaseConfig)
+
+const db = firebase.database()
+console.log('db ', db)
+
 const API_KEY = 'AIzaSyBaErRBkUh5q1lbTgTP9fvPBlI3ZrQlnAE'
 const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`
 const urlSingIn = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`
+const urlCustomToken = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=${API_KEY}`
+
+
 const config = {
   headers: {
     'Content-Type': 'application/json',
@@ -17,8 +37,8 @@ const instans = axios.create({
 type AuthUpEmailTS = {
   firstName?: string | null,
   lastName?: string| null,
-  email?: string| null,
-  password?: string| null,
+  email: string,
+  password: string,
   getInspired?: boolean
 }
 export enum ErrorEnumSingIn {
@@ -56,29 +76,57 @@ export type MainResponseSingIn = {
   status: number,
   statusText: string,
 }
-const authMail = {
-  addUserAuthMail: (email?: string| null, password?: string| null, controlLabel?: boolean) => {
-    let user = {
-      email, password, returnSecureToken: true,
-    }
-    return axios.post<MainResponseSingIn>(urlSingIn, user, config).then(
-        (value)=> {
-          return value
-        }
-    ).catch((value) => value.response.data.error.message)
+type CustomToken = {
+  idToken: string
+  refreshToken: string
+  expiresIn: string
+}
+
+export const auth = firebase.auth()
+
+
+export const authMail = {
+
+  addUserAuthMail: (email: string, password: string) => {
+    // sign In
+    return auth.signInWithEmailAndPassword(email, password)
+        .then(
+            (response) => {
+              return response.user
+            } )
+        .catch((value) => value.response.data.error.message)
   },
   authUpMail: (dataUser: AuthUpEmailTS) => {
     let { email, password } = dataUser
 
-    return axios.post(url, {email, password, returnSecureToken: true}, config).then(
-        (value) => {
-          console.log('value auth UP ', value)
-          console.log('data User ', dataUser)
-        }
-    )
+    return auth.createUserWithEmailAndPassword( email, password )
+        .then((value) => {
+          return value
+        } )
+        .catch((error) => {
+          let errorCode = error.code
+          let errorMessage = error.message
+          if (errorCode == 'auth/weak-password') {
+            alert('The password is too weak.')
+          } else {
+            alert(errorMessage)
+          }
+          console.log(error)
+        })
+  },
+  signInWithCustomToken: (token: string) => {
+    return axios.post<CustomToken>(urlCustomToken, {token, returnSecureToken: true}, config)
+        .then(
+            (value) => {
+              console.log('Response urlCustomToken ', value)
+            }
+        )
+  },
+  // logout
+  logout: () => {
+    auth.signOut().then( (el) => console.log('loqnOut ', el))
   },
 }
-export default authMail
 
 
 /* .catch( (error) => {
@@ -86,3 +134,11 @@ export default authMail
   /*  return error.response.data.error.message  */
 /* }
 )*/
+
+
+//  return axios.post(url, {email, password, returnSecureToken: true}, config).then(
+//   (value) => {
+//     console.log('value auth UP ', value)
+//     console.log('data User ', dataUser)
+//   }
+// )

@@ -659,7 +659,6 @@ export const Body: React.FC<BodyTS> = () => {
                           <a href="http://bagnetnacii.blogspot.com/">ГО ОПГ "Багнет Нації"</a> <br/>
                           <a href="https://budmo.in.ua/">Школа Конституції</a> <br/>
                           <a href="http://ukr-merezha.com/">Суспільна система</a> <br/>
-                          <a href="https://spgr.org.ua/">Справа громад</a> <br/>
                         </Typography>
                       </Paper>
                     </Grid>

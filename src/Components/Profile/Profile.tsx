@@ -7,6 +7,7 @@ import avatarBackground from './../../img/learn_main_page.jpg'
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera'
 import ProfileChangeStatus from './ProfileChangeStatus'
 import ProfileScrablleTabs from './ProfileScrablleTabs'
+import HeaderMenu from '../Header/HeaderMenu'
 
  type mapToProps = {}
  type mapDistpach = {}
@@ -18,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
+      zIndex: 10,
     },
     large: {
       width: theme.spacing(7) + 100,
@@ -36,6 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundSize: 'cover',
     },
     profile: {
+      'zIndex': 10,
       'backgroundColor': 'burlywood',
       'height': 'auto',
       'paddingTop': '348px',

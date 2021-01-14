@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { Formik, Form, ErrorMessage, Field } from 'formik'
+import { NavLink } from 'react-router-dom'
 
 
 type LoginUpTS = {
@@ -22,8 +23,8 @@ type LoginUpTS = {
  type AuthUpEmailTS = {
   firstName?: string | null,
   lastName?: string| null,
-  email?: string| null,
-  password?: string| null,
+  email: string,
+  password: string,
   getInspired?: boolean
 }
 
@@ -66,12 +67,17 @@ const useStyles = makeStyles((theme) => ({
 const jsUcfirst = (strring: any ) => {
   return strring?.trim()[0].toUpperCase() + strring.trim()?.slice(1)
 }
+type errorTest = {
+  lastName?: string,
+  firstName?: string,
+  email?: string,
+  password?: string
+}
 export const SignUp: React.FC<LoginUpTS> = (props: LoginUpTS) => {
   const { sanAuthUpEmail } = props
   const classes = useStyles()
   const validate = (values: AuthUpEmailTS): {} => {
-    let error: AuthUpEmailTS = {}
-
+    let error: errorTest = {}
     if (!values.firstName) {
       error.firstName = 'Обов\'язкове поле';
     } else if (values.firstName.length <= 1) {
@@ -93,7 +99,7 @@ export const SignUp: React.FC<LoginUpTS> = (props: LoginUpTS) => {
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
       error.email = 'Невірна адреса електронної пошти';
     }
-
+    console.log('error ', error)
     return error;
   }
   const onSubmit = (values: AuthUpEmailTS) => {
@@ -105,7 +111,11 @@ export const SignUp: React.FC<LoginUpTS> = (props: LoginUpTS) => {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <NavLink to={'/'}
+            style={{
+              textDecoration: 'none',
+            }}>  <LockOutlinedIcon titleAccess={'Перейти на головну сторінку'} color="primary"/>
+          </NavLink>
         </Avatar>
         <Typography component="h1" variant="h5">
           Зареєструйтесь
@@ -224,7 +234,7 @@ export const SignUp: React.FC<LoginUpTS> = (props: LoginUpTS) => {
                   variant="contained"
                   color="primary"
                   className={classes.submit}
-                  disabled= {!formik.isValid}
+                  // disabled= {!formik.isValid}
                 >
             Зареєструватись
                 </Button>

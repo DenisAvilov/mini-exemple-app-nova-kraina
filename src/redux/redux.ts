@@ -1,11 +1,13 @@
 import { combineReducers, createStore,
-  applyMiddleware, compose, Action } from 'redux';
-import userEmail from './auth_users_email';
-import thunkMiddleware, { ThunkAction } from 'redux-thunk' 
+  applyMiddleware, compose, Action } from 'redux'
+import userEmail from './auth_users_email'
+import authUpEmail from './authUp_email'
+import thunkMiddleware, { ThunkAction } from 'redux-thunk'
 
 
 const RootReducer = combineReducers({
   userAuthMail: userEmail,
+  userUpEmail: authUpEmail,
 })
 
 // return type store

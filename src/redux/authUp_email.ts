@@ -1,5 +1,5 @@
 
-import authMail from '../API/authMail'
+import {authMail} from '../API/authMail'
 import { interLiteralString } from '../fanction_helps/literalFromString'
 import { ActionTypes, BaseActionType } from './redux'
 const AUTH_UP_USERS_EMAIL = 'NOVA-KRAINA/AUTH-UP-USERS-EMAIL'
@@ -8,30 +8,29 @@ const AUTH_UP_USERS_EMAIL = 'NOVA-KRAINA/AUTH-UP-USERS-EMAIL'
 type InitialValuesTsUp = {
   name?: string | null,
   lastName?: string | null,
-  email?: string | null,
-  password?: string | null,
+  email: string,
+  password: string,
   getInspired?: boolean
 }
 
 let initialState: InitialValuesTsUp = {
   name: null,
   lastName: null,
-  email: null,
-  password: null,
+  email: '',
+  password: '',
   getInspired: false,
 }
 const authUpEmail =
  (state = initialState, action: ActionType): InitialValuesTsUp => {
    switch (action.type) {
      case AUTH_UP_USERS_EMAIL: {
-       debugger
        return {
          ...state,
-         name: action.userData.name,
-         lastName: action.userData.lastName,
-         email: action.userData.email,
-         password: action.userData.password,
-         getInspired: action.userData.getInspired,
+         email: action.email,
+         password: action.password,
+         name: action.name,
+         lastName: action.lastName,
+         getInspired: action.getInspired,
        }
      }
      default:
@@ -39,14 +38,18 @@ const authUpEmail =
    }
  }
 const actions = {
-  authUpEmail: ( userData: InitialValuesTsUp) => (
+  authUpEmail: (email: string, password: string,
+      name?: string | null, lastName?: string | null,
+      getInspired?: boolean) => (
         { type: interLiteralString(AUTH_UP_USERS_EMAIL),
-          userData } as const),
+          name, lastName, email, password, getInspired } as const),
 }
 export const sanAuthUpEmail =
     ( userData: InitialValuesTsUp) :ThunkType => async (distpath) => {
       let result = await authMail.authUpMail(userData)
-      console.log(result)
+      result
+      ? distpath(actions.authUpEmail( 'test email', 'test password', null, null, true,))
+      : alert('По приколу, но что то пошло не так! )')
     }
 
 
