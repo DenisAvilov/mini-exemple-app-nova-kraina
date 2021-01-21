@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/mini-exemple-app-nova-kraina/static/css/main.9e330b9b.chunk.css",
-    "main.js": "/mini-exemple-app-nova-kraina/static/js/main.207d0be0.chunk.js",
-    "main.js.map": "/mini-exemple-app-nova-kraina/static/js/main.207d0be0.chunk.js.map",
+    "main.css": "/mini-exemple-app-nova-kraina/static/css/main.3c3f87fc.chunk.css",
+    "main.js": "/mini-exemple-app-nova-kraina/static/js/main.26cd40ea.chunk.js",
+    "main.js.map": "/mini-exemple-app-nova-kraina/static/js/main.26cd40ea.chunk.js.map",
     "runtime-main.js": "/mini-exemple-app-nova-kraina/static/js/runtime-main.7015c43a.js",
     "runtime-main.js.map": "/mini-exemple-app-nova-kraina/static/js/runtime-main.7015c43a.js.map",
-    "static/js/2.7db1804e.chunk.js": "/mini-exemple-app-nova-kraina/static/js/2.7db1804e.chunk.js",
-    "static/js/2.7db1804e.chunk.js.map": "/mini-exemple-app-nova-kraina/static/js/2.7db1804e.chunk.js.map",
+    "static/js/2.9df16409.chunk.js": "/mini-exemple-app-nova-kraina/static/js/2.9df16409.chunk.js",
+    "static/js/2.9df16409.chunk.js.map": "/mini-exemple-app-nova-kraina/static/js/2.9df16409.chunk.js.map",
     "index.html": "/mini-exemple-app-nova-kraina/index.html",
-    "precache-manifest.e0d47d521af3cc91ce8ba8a1fa7a1b6d.js": "/mini-exemple-app-nova-kraina/precache-manifest.e0d47d521af3cc91ce8ba8a1fa7a1b6d.js",
+    "precache-manifest.b9059abcf7ef961121f1d8541c6ab66f.js": "/mini-exemple-app-nova-kraina/precache-manifest.b9059abcf7ef961121f1d8541c6ab66f.js",
     "service-worker.js": "/mini-exemple-app-nova-kraina/service-worker.js",
-    "static/css/main.9e330b9b.chunk.css.map": "/mini-exemple-app-nova-kraina/static/css/main.9e330b9b.chunk.css.map",
-    "static/js/2.7db1804e.chunk.js.LICENSE.txt": "/mini-exemple-app-nova-kraina/static/js/2.7db1804e.chunk.js.LICENSE.txt",
+    "static/css/main.3c3f87fc.chunk.css.map": "/mini-exemple-app-nova-kraina/static/css/main.3c3f87fc.chunk.css.map",
+    "static/js/2.9df16409.chunk.js.LICENSE.txt": "/mini-exemple-app-nova-kraina/static/js/2.9df16409.chunk.js.LICENSE.txt",
     "static/media/avatar.png": "/mini-exemple-app-nova-kraina/static/media/avatar.e98c81d4.png",
     "static/media/fantasy.jpg": "/mini-exemple-app-nova-kraina/static/media/fantasy.4201152f.jpg",
     "static/media/field.jpg": "/mini-exemple-app-nova-kraina/static/media/field.acdea94f.jpg",
@@ -31,8 +31,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.7015c43a.js",
-    "static/js/2.7db1804e.chunk.js",
-    "static/css/main.9e330b9b.chunk.css",
-    "static/js/main.207d0be0.chunk.js"
+    "static/js/2.9df16409.chunk.js",
+    "static/css/main.3c3f87fc.chunk.css",
+    "static/js/main.26cd40ea.chunk.js"
   ]
 }
