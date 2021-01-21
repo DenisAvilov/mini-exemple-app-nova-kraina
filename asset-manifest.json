@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/mini-exemple-app-nova-kraina/static/css/main.3c3f87fc.chunk.css",
-    "main.js": "/mini-exemple-app-nova-kraina/static/js/main.26cd40ea.chunk.js",
-    "main.js.map": "/mini-exemple-app-nova-kraina/static/js/main.26cd40ea.chunk.js.map",
+    "main.js": "/mini-exemple-app-nova-kraina/static/js/main.ec3986e2.chunk.js",
+    "main.js.map": "/mini-exemple-app-nova-kraina/static/js/main.ec3986e2.chunk.js.map",
     "runtime-main.js": "/mini-exemple-app-nova-kraina/static/js/runtime-main.7015c43a.js",
     "runtime-main.js.map": "/mini-exemple-app-nova-kraina/static/js/runtime-main.7015c43a.js.map",
     "static/js/2.9df16409.chunk.js": "/mini-exemple-app-nova-kraina/static/js/2.9df16409.chunk.js",
     "static/js/2.9df16409.chunk.js.map": "/mini-exemple-app-nova-kraina/static/js/2.9df16409.chunk.js.map",
     "index.html": "/mini-exemple-app-nova-kraina/index.html",
-    "precache-manifest.b9059abcf7ef961121f1d8541c6ab66f.js": "/mini-exemple-app-nova-kraina/precache-manifest.b9059abcf7ef961121f1d8541c6ab66f.js",
+    "precache-manifest.cac9faafbeac4ec5b2456d8a76818059.js": "/mini-exemple-app-nova-kraina/precache-manifest.cac9faafbeac4ec5b2456d8a76818059.js",
     "service-worker.js": "/mini-exemple-app-nova-kraina/service-worker.js",
     "static/css/main.3c3f87fc.chunk.css.map": "/mini-exemple-app-nova-kraina/static/css/main.3c3f87fc.chunk.css.map",
     "static/js/2.9df16409.chunk.js.LICENSE.txt": "/mini-exemple-app-nova-kraina/static/js/2.9df16409.chunk.js.LICENSE.txt",
@@ -33,6 +33,6 @@
     "static/js/runtime-main.7015c43a.js",
     "static/js/2.9df16409.chunk.js",
     "static/css/main.3c3f87fc.chunk.css",
-    "static/js/main.26cd40ea.chunk.js"
+    "static/js/main.ec3986e2.chunk.js"
   ]
 }

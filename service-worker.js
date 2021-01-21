@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/mini-exemple-app-nova-kraina/precache-manifest.b9059abcf7ef961121f1d8541c6ab66f.js"
+  "/mini-exemple-app-nova-kraina/precache-manifest.cac9faafbeac4ec5b2456d8a76818059.js"
 );
 
 self.addEventListener('message', (event) => {

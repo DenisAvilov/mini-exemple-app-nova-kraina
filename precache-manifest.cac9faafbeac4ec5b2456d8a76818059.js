@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ab5089486a97d98c416367ce5d76dec9",
+    "revision": "c11cb0a92a3313696dd9f83d0c03bd24",
     "url": "/mini-exemple-app-nova-kraina/index.html"
   },
   {
-    "revision": "6787bf7a8f98a1c3843d",
+    "revision": "d7f39db8d241d1451fb3",
     "url": "/mini-exemple-app-nova-kraina/static/css/main.3c3f87fc.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/mini-exemple-app-nova-kraina/static/js/2.9df16409.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6787bf7a8f98a1c3843d",
-    "url": "/mini-exemple-app-nova-kraina/static/js/main.26cd40ea.chunk.js"
+    "revision": "d7f39db8d241d1451fb3",
+    "url": "/mini-exemple-app-nova-kraina/static/js/main.ec3986e2.chunk.js"
   },
   {
     "revision": "70a8ea52cec19cf7d16b",
