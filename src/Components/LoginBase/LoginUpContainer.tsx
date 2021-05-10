@@ -17,10 +17,13 @@ let mapStateToProps = (state: RootReducerType): MapStateToProps => {
     isOpen: authUsersEmail(state).isOpen,
   }
 }
-export default connect( mapStateToProps, { sanAuthUpEmail} )( LoginUpContainer )
+export default connect< MapStateToProps, MapDispath, OwnType, RootReducerType>( mapStateToProps, { sanAuthUpEmail} )( LoginUpContainer )
+
+
+
     type AuthUpEmailTS = {
-        firstName?: string | null,
-        lastName?: string| null,
+        firstName: string,
+        lastName: string,
         email: string,
         password: string,
         getInspired?: boolean
@@ -29,8 +32,8 @@ export default connect( mapStateToProps, { sanAuthUpEmail} )( LoginUpContainer )
         sanAuthUpEmail: (dataUser: AuthUpEmailTS ) => void
       }
     type MapStateToProps = {
-         email: string,
-         isOpen: boolean,
+        email: string,
+        isOpen: boolean,
     }
     type OwnType = {}
-    type LoginAllTypes = MapStateToProps & MapDispath
+    type LoginAllTypes = MapStateToProps & MapDispath & OwnType

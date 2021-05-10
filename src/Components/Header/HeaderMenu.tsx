@@ -69,8 +69,10 @@ const useStyles = makeStyles( (theme: Theme) => createStyles( {
 
 type Anchor = 'right';
 
-export default function HeaderMenu(props: {isOpen: boolean, sanLogout: () => void}) {
+export default function HeaderMenu(
+    props: {isOpen: boolean, sanLogout: () => void, fullName: string}) {
   const classes = useStyles();
+
   const [state, setState] = React.useState({
     right: false,
   });
@@ -98,7 +100,7 @@ export default function HeaderMenu(props: {isOpen: boolean, sanLogout: () => voi
     >
       <List>
         {props.isOpen
-        ? <NavLink to="/signin"
+        ? <NavLink to="/"
           style={{
             textDecoration: 'none',
           }}>
@@ -107,7 +109,7 @@ export default function HeaderMenu(props: {isOpen: boolean, sanLogout: () => voi
             <ListItemText secondary="Вихід" onClick={ () => props.sanLogout()}/>
           </ListItem>
         </NavLink>
-        : <NavLink to="/signin"
+        : <React.Fragment> <NavLink to="/signin"
           style={{
             textDecoration: 'none',
           }}>
@@ -115,7 +117,17 @@ export default function HeaderMenu(props: {isOpen: boolean, sanLogout: () => voi
             <ListItemIcon> <InboxIcon />  </ListItemIcon>
             <ListItemText secondary="Вхід"/>
           </ListItem>
-        </NavLink> }
+        </NavLink>
+        <NavLink to="/signup"
+          style={{
+            textDecoration: 'none',
+          }}>
+          <ListItem button>
+            <ListItemIcon> <InboxIcon />  </ListItemIcon>
+            <ListItemText secondary="Реєстрація"/>
+          </ListItem>
+        </NavLink>
+        </React.Fragment> }
         { props.isOpen ?
         <NavLink to="/about"
           style={{
@@ -139,21 +151,16 @@ export default function HeaderMenu(props: {isOpen: boolean, sanLogout: () => voi
       />
     </div>
   );
-  console.log('hesder ', props.isOpen)
+  // console.log('hesder ', props.isOpen)
   return (
     <Grid container alignItems={'center'} className={classes.root}>
       <Grid item sm xs container alignItems="center" >
         <Grid item >
-          <NavLink className={classes.logo} to="" activeStyle={{
-            textDecoration: 'none',
-          }}>
-            {'Nova Kraїna'}
-          </NavLink>
-
+          <Logo />
         </Grid>
       </Grid>
       <Grid item sm xs container justify="flex-end" className={classes.burgerElement}>
-        {props.isOpen ? <Avatar src="/broken-image.jpg" /> : '' }
+        {props.isOpen ? <React.Fragment > {props.fullName} <Avatar src="/broken-image.jpg" /> </React.Fragment>: '' }
         <Button onClick={toggleDrawer('right', true)}><MenuIcon className={classes.colorThem}/></Button>
         <Drawer anchor={'right'} open={state['right']} onClose={toggleDrawer('right', false)}>
           {list('right')}
@@ -163,3 +170,13 @@ export default function HeaderMenu(props: {isOpen: boolean, sanLogout: () => voi
   );
 }
 
+export const Logo: React.FC<any> = (props: any) => {
+  const classes = useStyles()
+  return (
+    <NavLink className={classes.logo} to="/" title={'На головну'} activeStyle={{
+      textDecoration: 'none',
+    }}>
+      {'Nova Kraїna'}
+    </NavLink>
+  )
+}

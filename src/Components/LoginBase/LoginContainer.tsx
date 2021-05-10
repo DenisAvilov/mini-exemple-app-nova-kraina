@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom'
 import { sanAuthMailIn } from '../../redux/auth_users_email'
 import { RootReducerType } from '../../redux/redux'
 import { authUsersEmail } from '../../redux/reselect'
-import BodyContainer from '../Body/BodyContainer'
 import { SignIn} from './SignIn'
 
 
@@ -50,4 +49,4 @@ export default connect( mapStateToProps,
         isOpen: boolean
     }
     type OwnType = {}
-    type LoginAllTypes = MapStateToProps & MapDispath
+    type LoginAllTypes = MapStateToProps & MapDispath & OwnType

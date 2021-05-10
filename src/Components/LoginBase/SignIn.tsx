@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -9,11 +8,11 @@ import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
 import { Formik, Form, ErrorMessage, FastField } from 'formik'
+import { Logo } from '../Header/HeaderMenu';
 
 function Copyright() {
   return (
@@ -95,13 +94,7 @@ export const SignIn:React.FC< PropsSignIn > = (props: PropsSignIn) => {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <NavLink to={'/'}
-              style={{
-                textDecoration: 'none',
-              }}>  <LockOutlinedIcon titleAccess={'Перейти на головну сторінку'} color="primary"/>
-            </NavLink>
-          </Avatar>
+          <Logo />
           <Typography component="h1" variant="h5">
             Увійти
           </Typography>
@@ -111,8 +104,7 @@ export const SignIn:React.FC< PropsSignIn > = (props: PropsSignIn) => {
             onSubmit = { onSubmit }
             /* enableReinitialize */
           >
-            { (formik) => {
-              // formik.errors.email = 'Логин или пароль не верен'
+            { (formik) => { 
               return (
                 <React.Fragment> {error}
                   <Form className={classes.form}>
@@ -184,9 +176,7 @@ export const SignIn:React.FC< PropsSignIn > = (props: PropsSignIn) => {
                       </Grid>
                       <Grid item>
                         <NavLink to="/signup">
-                          {/* <Link href="/signup" variant="body2"> */}
                           {'Не маете аккаунту? Створити'}
-                          {/* </Link> */}
                         </NavLink>
                       </Grid>
                     </Grid>

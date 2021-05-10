@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { Formik, Form, ErrorMessage, Field } from 'formik'
 import { NavLink } from 'react-router-dom'
+import { Logo } from '../Header/HeaderMenu'
 
 
 type LoginUpTS = {
@@ -21,8 +22,8 @@ type LoginUpTS = {
 }
 
  type AuthUpEmailTS = {
-  firstName?: string | null,
-  lastName?: string| null,
+  firstName: string,
+  lastName: string,
   email: string,
   password: string,
   getInspired?: boolean
@@ -99,7 +100,7 @@ export const SignUp: React.FC<LoginUpTS> = (props: LoginUpTS) => {
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
       error.email = 'Невірна адреса електронної пошти';
     }
-    console.log('error ', error)
+    console.log('error SignUp', error)
     return error;
   }
   const onSubmit = (values: AuthUpEmailTS) => {
@@ -110,13 +111,7 @@ export const SignUp: React.FC<LoginUpTS> = (props: LoginUpTS) => {
     <Container component="main" maxWidth="xs" className={classes.content}>
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <NavLink to={'/'}
-            style={{
-              textDecoration: 'none',
-            }}>  <LockOutlinedIcon titleAccess={'Перейти на головну сторінку'} color="primary"/>
-          </NavLink>
-        </Avatar>
+        <Logo />
         <Typography component="h1" variant="h5">
           Зареєструйтесь
         </Typography>
@@ -240,9 +235,9 @@ export const SignUp: React.FC<LoginUpTS> = (props: LoginUpTS) => {
                 </Button>
                 <Grid container justify="flex-end">
                   <Grid item>
-                    <Link href="/signin" variant="body2">
-              Маєте акаунт? Увійти
-                    </Link>
+                    <NavLink to="/signin">
+                      {'Маєте акаунт? Увійти'}
+                    </NavLink>
                   </Grid>
                 </Grid>
               </Form>

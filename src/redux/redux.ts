@@ -3,11 +3,13 @@ import { combineReducers, createStore,
 import userEmail from './auth_users_email'
 import authUpEmail from './authUp_email'
 import thunkMiddleware, { ThunkAction } from 'redux-thunk'
+import profile from './profile_reduce'
 
 
 const RootReducer = combineReducers({
   userAuthMail: userEmail,
   userUpEmail: authUpEmail,
+  profile: profile,
 })
 
 // return type store

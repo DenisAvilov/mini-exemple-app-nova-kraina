@@ -8,6 +8,8 @@ const AUTH_USERS_EMAIL_IN = 'NOVA-KRAINA/AUTH-USERS-EMAIL-IN'
 const ERROR_EMAIL_IN = 'NOVA-KRAINA/ERROR-EMAIL-IN'
 const TAKE_ID_TOKEN = 'NOVA-KRAINA/TAKE_ID_TOKEN'
 const IS_OPEN = 'NOVA-KRAINA/IS_OPEN'
+const UID = 'NOVA-KRAINA/UID'
+const FULL_NAME = 'NOVA-KRAINA/FULL_NAME'
 
 type InitialValuesTsIn = {
   email: string,
@@ -17,6 +19,8 @@ type InitialValuesTsIn = {
   errorState?: boolean,
   dataUser: ResponseDataUser | null,
   isOpen: boolean
+  uid: string
+  fullName: string
 }
 
 let initialState:InitialValuesTsIn = {
@@ -27,6 +31,8 @@ let initialState:InitialValuesTsIn = {
   errorState: false,
   dataUser: null,
   isOpen: false,
+  uid: '',
+  fullName: '',
 }
 const userEmail =
  (state = initialState, action: ActionType): InitialValuesTsIn => {
@@ -56,6 +62,18 @@ const userEmail =
          isOpen: action.isOpen,
        }
      }
+     case UID: {
+       return {
+         ...state,
+         uid: action.uid,
+       }
+     }
+     case FULL_NAME: {
+       return {
+         ...state,
+         fullName: action.fullName,
+       }
+     }
      default:
        return state
    }
@@ -76,31 +94,56 @@ const actions = {
   isOpen: (
       isOpen: boolean ) => (
      { type: interLiteralString(IS_OPEN), isOpen } as const),
+  uid: (
+      uid: string ) => (
+      {type: interLiteralString(UID), uid } as const),
+  fullName: (
+      fullName: string ) => (
+      {type: interLiteralString(FULL_NAME), fullName} as const),
 }
+// end actions
+
 export const sanAuthMailIn = (
     email: string, password: string, controlLabel?: boolean)
     :ThunkType => async (distpath) => {
   let user = await authMail.addUserAuthMail(email, password,)
 
-  if (user == 'EMAIL_NOT_FOUND' || user == 'INVALID_PASSWORD') {
+  if (user.code == 'auth/user-not-found' || user.code == 'auth/wrong-password') {
     distpath(actions.error('Логин или пароль не верен повторите ввод данных', true))
+  } else if (user.code == `auth/too-many-requests`) {
+    distpath(actions.error(`Доступ до цього облікового запису тимчасово вимкнено через багато невдалих спроб входу.
+     Ви можете негайно відновити його, скинувши пароль, або спробувати пізніше.`, true))
   } else if ( user == 'USER_DISABLED') {
     distpath(actions.error('Акаунт удален', true))
-  } else if ( user ) {
+  } else if ( user == 'There is no user record corresponding to this identifier. The user may have been deleted.') {
+    distpath(actions.error('Тут немає жодного запису користувача, що відповідає цьому ідентифікатору. Можливо, користувача видалено. Спробуйте ще', true))
+  } else if ( user.email ) {
     distpath(actions.isOpen(true))
   }
 }
 
-export const sanIsOpen = (isOpen: boolean): ThunkType => async (distpath) => {
+export const sanIsOpen = (isOpen: boolean, uid: string)
+    :ThunkType => async (distpath) => {
   distpath(actions.isOpen(isOpen))
+  distpath(actions.uid(uid))
 }
-export const sanLogout = (): ThunkType => async (distpath) => {
+
+export const sanFullName = (fullName: string)
+    :ThunkType => async (distpath) => {
+  distpath(actions.fullName(fullName))
+}
+export const sanLogout = ()
+    :ThunkType => async (distpath) => {
   authMail.logout()
   distpath(actions.isOpen(false))
 }
-// export const sanObdateToken = () => async (distpath) => {
 
-// }
+
+export default userEmail
+export type InitialStateType = typeof initialState
+export type ActionType = ActionTypes<typeof actions>
+// Передаем в наш тип дополнительный тип: stopSubmit
+type ThunkType = BaseActionType<ActionType>
 type ResponseDataUser = {
   displayName: string
   email: string
@@ -111,9 +154,3 @@ type ResponseDataUser = {
   refreshToken: string
   registered: boolean
 }
-
-export default userEmail
-export type InitialStateType = typeof initialState
-export type ActionType = ActionTypes<typeof actions>
-// Передаем в наш тип дополнительный тип: stopSubmit
-type ThunkType = BaseActionType<ActionType>

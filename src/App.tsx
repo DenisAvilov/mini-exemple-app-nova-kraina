@@ -1,18 +1,17 @@
 import React from 'react'
 import './App.css'
-import Container from '@material-ui/core/Container'
 import BodyContainer from './Components/Body/BodyContainer'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Router, Switch } from 'react-router-dom'
 import HeaderContainer from './Components/Header/HeaderContainer'
 import LoginContainer from './Components/LoginBase/LoginContainer'
 import LoginUpContainer from './Components/LoginBase/LoginUpContainer'
-import { Profile } from './Components/Profile/Profile'
 import { RootReducerType } from './redux/redux'
 import { authUsersEmail } from './redux/reselect'
 import { connect } from 'react-redux'
 import { sanIsOpen } from './redux/auth_users_email'
 import { auth } from './API/authMail'
+import ProfileContainer from './Components/Profile/ProfileContainer'
 
 
 const useStyles = makeStyles( (theme: Theme) => createStyles( {
@@ -27,28 +26,23 @@ type AppTs = {
 const App: React.FC<AppTs> = (props) => {
   const classes = useStyles()
   let { isOpen } = props
-  console.log('App ', isOpen)
+  // console.log('App ', isOpen)
   return (
     <div className={classes.root}>
       {/* <CssBaseline /> */}
 
 
       <Switch>
-        <Route exact path="/" render={ () =>
-        isOpen ?
-         <React.Fragment>
-           <HeaderContainer />
-           <Profile/>
-         </React.Fragment>
-        :
-        <React.Fragment>
-          {/* <Container maxWidth="lg" className={classes.root}>
-
-            </Container> */}
-          <HeaderContainer />
-          <BodyContainer/>
-        </React.Fragment>
-        } />
+        {isOpen
+          ? <Route exact path="/" render={ () =>
+            <React.Fragment>
+              <HeaderContainer />
+              <ProfileContainer/>
+            </React.Fragment> } />
+          : <Route exact path="/" render={ () => <React.Fragment>
+            <HeaderContainer />
+            <BodyContainer />
+          </React.Fragment>} />}
         <Route path="/signup" render={ ()=> ( <LoginUpContainer /> )}/>
         <Route path="/signin" render={ () => ( <LoginContainer /> )} />
       </Switch>
@@ -63,14 +57,14 @@ class AppContainer extends React.Component<AppContainerAllTS> {
     // listen for auth status change
     auth.onAuthStateChanged( (user) => {
       if (user) {
-        this.props.sanIsOpen(true)
-        console.log('onAuthStateChanged App ', this.props.isOpen )
+        this.props.sanIsOpen(true, user.uid)
       } else {
-        this.props.sanIsOpen(false)
-        console.log('out ', user )
+        this.props.sanIsOpen(false, '')
+        // console.log('out ', user )
       }
     })
   }
+
 
   render() {
     return <App isOpen={this.props.isOpen}/>
@@ -89,7 +83,7 @@ type MapStateToProps = {
   isOpen: boolean
 }
 type TDispatchProps= {
-  sanIsOpen: (isOpen: boolean) => void,
+  sanIsOpen: (isOpen: boolean, uid: string) => void,
 }
 type ownBodyTS= {}
 

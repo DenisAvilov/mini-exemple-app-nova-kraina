@@ -1,18 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import './Profile.css'
 import { Avatar, Fab, Grid } from '@material-ui/core'
 import avatar from './../../img/avatar.png'
 import avatarBackground from './../../img/learn_main_page.jpg'
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera'
-import ProfileChangeStatus from './ProfileChangeStatus'
 import ProfileScrablleTabs from './ProfileScrablleTabs'
-import HeaderMenu from '../Header/HeaderMenu'
+import ProfileChangeStatus from './ProfileChangeStatus'
+import ResponsiveStatus from './ResponsiveStatus'
 
- type mapToProps = {}
- type mapDistpach = {}
- type ownProps = {}
- type ProfileTs = mapDistpach & ownProps & mapToProps
 
 const useStyles = makeStyles((theme: Theme) =>
 
@@ -133,11 +129,31 @@ const useStyles = makeStyles((theme: Theme) =>
     profilePostsInformationWrap: {
       backgroundColor: 'blueviolet',
     },
+    h1: {
+      marginTop: '5px',
+      marginBottom: '5px',
+    }
   }),
 );
 
 export const Profile: React.FC< ProfileTs > = (props: ProfileTs) => {
   const classes = useStyles();
+  let {fullName, status} = props
+
+  let [realStatus, statusUseState] = useState(status)
+  let [statusCount, statusUseCount] = useState(true)
+  const onClickStatus = () =>{
+    statusUseCount( !statusCount )
+  }
+  const onBlurStatus = () => {
+    statusUseCount( !statusCount )
+  }
+ 
+  useEffect(() => {
+    if (realStatus != status) {
+      statusUseState(status)
+    }
+  }, [status])
   return (
     <React.Fragment>
       <Grid className={classes.profile} container
@@ -162,11 +178,11 @@ export const Profile: React.FC< ProfileTs > = (props: ProfileTs) => {
           justify="center"
           alignItems="center">
           <article>
-            <h1>Denis Avilov</h1>
-            <p>статус</p>
-            {/* <ProfileChangeStatus /> */}
+            <h1 className={classes.h1}>{fullName}</h1>
           </article>
-
+          {statusCount && <div onClick={onClickStatus}> {realStatus} </div>}
+          {!statusCount && <ResponsiveStatus setOpens={!statusCount} onBlurStatus={onBlurStatus} realStatus={realStatus}/> }
+          {/* <ProfileChangeStatus realStatus={realStatus} onBlurStatus={onBlurStatus} statusUseState={statusUseState}/> */}
         </Grid>
         <Grid className="scrablle_tabs" container>
           <ProfileScrablleTabs />
@@ -192,3 +208,7 @@ export const Profile: React.FC< ProfileTs > = (props: ProfileTs) => {
     </React.Fragment>
   )
 }
+type MapStateToPropsTS = {fullName: string, status: string}
+type DispatchPropsTS = {}
+type OwnStateTS = {}
+type ProfileTs = DispatchPropsTS & OwnStateTS & MapStateToPropsTS

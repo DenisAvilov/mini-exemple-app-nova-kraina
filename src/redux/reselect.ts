@@ -7,6 +7,13 @@ const authUpEmail = (state: RootReducerType) => {
   return state.userUpEmail.getInspired
 }
 
+const profile = (state: RootReducerType) => {
+  return state.profile
+}
+export const resProfile = createSelector( profile, (profile) => {
+  return profile
+})
+
 export const resAuthUpEmail = createSelector( authUpEmail, (authUpEmail) => {
   return authUpEmail
 })

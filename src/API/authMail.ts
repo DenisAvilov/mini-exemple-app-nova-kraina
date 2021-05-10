@@ -13,12 +13,11 @@ const firebaseConfig = {
 }
 firebase.initializeApp(firebaseConfig)
 
-const db = firebase.database()
-console.log('db ', db)
+export const db = firebase.database()
+export const auth = firebase.auth()
 
+// firebase.auth().currentUser.uid
 const API_KEY = 'AIzaSyBaErRBkUh5q1lbTgTP9fvPBlI3ZrQlnAE'
-const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`
-const urlSingIn = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`
 const urlCustomToken = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=${API_KEY}`
 
 
@@ -28,18 +27,47 @@ const config = {
   },
 };
 
-const instans = axios.create({
-  // withCredentials: true,
-  baseURL: `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`,
-})
+export const authMail = {
 
-
-type AuthUpEmailTS = {
-  firstName?: string | null,
-  lastName?: string| null,
-  email: string,
-  password: string,
-  getInspired?: boolean
+  addUserAuthMail: (email: string, password: string) => {
+    // sign In
+    return auth.signInWithEmailAndPassword(email, password)
+        .then(
+            (response) => {
+              return response.user
+            } )
+        .catch((value) => {
+          return value
+        })
+  },
+  authUpMail: (email: string, password: string) => {
+    return auth.createUserWithEmailAndPassword( email, password )
+        .then((value) => {
+          return value
+        } )
+        .catch((error) => {
+          let errorCode = error.code
+          let errorMessage = error.message
+          if (errorCode == 'auth/weak-password') {
+            alert('The password is too weak.')
+          } else {
+            alert( errorMessage)
+          }
+          console.log('errorMessage signUp', error)
+        })
+  },
+  signInWithCustomToken: (token: string) => {
+    return axios.post<CustomToken>(urlCustomToken, {token, returnSecureToken: true}, config)
+        .then(
+            (value) => {
+              console.log('Response urlCustomToken ', value)
+            }
+        )
+  },
+  // logout
+  logout: () => {
+    auth.signOut().then( (el) => console.log('loqnOut ', el))
+  },
 }
 export enum ErrorEnumSingIn {
   emailNotFound = 'EMAIL_NOT_FOUND',
@@ -80,52 +108,6 @@ type CustomToken = {
   idToken: string
   refreshToken: string
   expiresIn: string
-}
-
-export const auth = firebase.auth()
-
-
-export const authMail = {
-
-  addUserAuthMail: (email: string, password: string) => {
-    // sign In
-    return auth.signInWithEmailAndPassword(email, password)
-        .then(
-            (response) => {
-              return response.user
-            } )
-        .catch((value) => value.response.data.error.message)
-  },
-  authUpMail: (dataUser: AuthUpEmailTS) => {
-    let { email, password } = dataUser
-
-    return auth.createUserWithEmailAndPassword( email, password )
-        .then((value) => {
-          return value
-        } )
-        .catch((error) => {
-          let errorCode = error.code
-          let errorMessage = error.message
-          if (errorCode == 'auth/weak-password') {
-            alert('The password is too weak.')
-          } else {
-            alert(errorMessage)
-          }
-          console.log(error)
-        })
-  },
-  signInWithCustomToken: (token: string) => {
-    return axios.post<CustomToken>(urlCustomToken, {token, returnSecureToken: true}, config)
-        .then(
-            (value) => {
-              console.log('Response urlCustomToken ', value)
-            }
-        )
-  },
-  // logout
-  logout: () => {
-    auth.signOut().then( (el) => console.log('loqnOut ', el))
-  },
 }
 
 

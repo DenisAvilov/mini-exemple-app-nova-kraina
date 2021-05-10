@@ -15,6 +15,10 @@
 }
 .fp-controlArrow.fp-next{
     border-width: 20.5px 0 20.5px 20px;
+    
+}
+#fp-nav{
+    top: 70%;
 }
 .fp-controlArrow.fp-prev{
     border-width: 20.5px 20px 20.5px 0;

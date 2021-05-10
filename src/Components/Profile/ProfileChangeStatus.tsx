@@ -1,53 +1,57 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   createStyles,
   Theme,
-  ThemeProvider,
   makeStyles,
-  createMuiTheme,
 } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
-import { deepOrange } from '@material-ui/core/colors'
+
 import './ProfileChangeStatus'
+import { Field } from 'formik'
+import { DialogContent } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      'display': 'flex',
-      'flexWrap': 'wrap',
-      '& .MuiInput-underline-34:before': {
-        borderBottom: 'none',
-      },
+      border: '1px',
+      width: '300px',
+      height: '70px',
     },
-    // margin: {
-    //   margin: theme.spacing(1),
-    // },
+    poperedgenay: {
+      fontSize: '12px',
+      color: 'red',
+      padding: '0',
+      textAlign: 'right',
+    },
   }),
 );
 
-const theme = createMuiTheme({
-  palette: {
-    primary: deepOrange,
-  },
-});
 
-export default function ProfileChangeStatus() {
+export default function ProfileChangeStatus(props: mapStateToProps) {
   const classes = useStyles();
+  const {realStatus} = props
+  const CustomInputComponent = (props: any) => (
+    <textarea {...props}/>
+  );
+
+
+  let [countCimbol, setCountCimbol] = useState(250)
+  useEffect(()=>{
+    if ( realStatus.length != 250) {
+      setCountCimbol(countCimbol = 250 - realStatus.length)
+    }
+  }, [realStatus])
 
   return (
-    <form className={classes.root} noValidate >
-      <ThemeProvider theme={theme}>
-        <TextField
-          label="зминити"
-        //   id="mui-theme-provider-standard-input"
-        />
-        {/* <TextField
-          className={classes.margin}
-          label="ThemeProvider"
-          variant="outlined"
-          id="mui-theme-provider-outlined-input"
-        /> */}
-      </ThemeProvider>
-    </form>
+    <React.Fragment>
+      <Field name='status' as={CustomInputComponent}> </Field>
+      <DialogContent className={classes.poperedgenay}>
+        {`Осталось ввєсти ${countCimbol} символів`}
+      </DialogContent>
+    </React.Fragment>
   );
 }
+
+type mapStateToProps = {
+  realStatus: string
+}
+
