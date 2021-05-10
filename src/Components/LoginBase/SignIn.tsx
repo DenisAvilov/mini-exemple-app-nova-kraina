@@ -1,5 +1,4 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -9,12 +8,11 @@ import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import NavigationIcon from '@material-ui/icons/Navigation';
 import { NavLink } from 'react-router-dom';
+import { Formik, Form, ErrorMessage, FastField } from 'formik'
+import { Logo } from '../Header/HeaderMenu';
 
 function Copyright() {
   return (
@@ -28,7 +26,6 @@ function Copyright() {
     </Typography>
   );
 }
-
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -63,10 +60,33 @@ const useStyles = makeStyles((theme) => ({
   extendedIcon: {
     marginRight: theme.spacing(1),
   },
-}));
+}) );
+type singInTS = {
+  email?: string,
+  password?: string
+}
+export const SignIn:React.FC< PropsSignIn > = (props: PropsSignIn) => {
+  let { error } = props
 
-export default function SignIn() {
+  const validate = (values: InitialValuesTsIn, ) => {
+    let error: singInTS = { }
+    if (!values.password ) {
+      error.password = 'Обов\'язкове поле'
+    }
+    if (!values.email) {
+      error.email = 'Обов\'язкове поле'
+    } else if
+    (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+      error.email = 'Невірна адреса електронної пошти';
+    }
+    return error
+  }
   const classes = useStyles();
+  const onSubmit = (values: InitialValuesTsIn) => {
+    props.sanAuthMailIn(values.email, values.password, values.controlLabel)
+  }
+  const initialValues: InitialValuesTsIn =
+    {email: '', password: '', controlLabel: false}
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -74,69 +94,116 @@ export default function SignIn() {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
+          <Logo />
           <Typography component="h1" variant="h5">
             Увійти
           </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Запам'ятати мене"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
+          <Formik
+            initialValues = { initialValues }
+            validate = {validate}
+            onSubmit = { onSubmit }
+            /* enableReinitialize */
+          >
+            { (formik) => { 
+              return (
+                <React.Fragment> {error}
+                  <Form className={classes.form}>
+                    <FastField name="email">
+                      {(props : any) => {
+                        return <div>
+                          <TextField
+                            variant="outlined"
+                            margin="normal"
+                            type="email"
+                            {...props.field}
+                            required
+                            fullWidth
+                            label="Пошта"
+                            autoComplete="email"
+                            autoFocus
+                          />
+                          <ErrorMessage name="email">
+                            {(errorMsg) => <div className="error"> {errorMsg} </div>}
+                          </ErrorMessage>
+                        </div>
+                      }
+                      }
+                    </FastField>
+                    <FastField name="password">
+                      { (props: any) => {
+                        return (
+                          <React.Fragment>
+                            <TextField
+                              variant="outlined"
+                              margin="normal"
+                              {...props.field}
+                              required
+                              fullWidth
+                              label="Пароль"
+                              type="password"
+                              autoComplete="current-password"
+                            />
+                            <ErrorMessage name="password">
+                              {(errorMsg) => <div className="error"> {errorMsg} </div>}</ErrorMessage>
+                          </React.Fragment>
+                        )
+                      }}
+                    </FastField>
+                    <FastField name="controlLabel">
+                      { (props: any) => {
+                        return ( <FormControlLabel
+                          control={<Checkbox value="remember" color="primary" />}
+                          {...props.field}
+                          label="Запам'ятати мене"
+                        />)
+                      }}
+                    </FastField>
+
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      className={classes.submit}
+                    >
               Увійти
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
+                    </Button>
+                    <Grid container>
+                      <Grid item xs>
+                        <Link href="#" variant="body2">
                   Загубили пароль?
-                </Link>
-              </Grid>
-              <Grid item>
-                <NavLink to="/signup"> 
-                  {/* <Link href="/signup" variant="body2"> */}
-                    {'Не маете аккаунту? Створити'}
-                  {/* </Link> */}
-                 </NavLink> 
-              </Grid>
-            </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
-          </form>
+                        </Link>
+                      </Grid>
+                      <Grid item>
+                        <NavLink to="/signup">
+                          {'Не маете аккаунту? Створити'}
+                        </NavLink>
+                      </Grid>
+                    </Grid>
+                    <Box mt={5}>
+                      <Copyright />
+                    </Box>
+                  </Form>
+                </React.Fragment>
+              )
+            }}
+
+          </Formik>
         </div>
       </Grid>
-
     </Grid>
   );
+}
+
+
+type InitialValuesTsIn = {
+  email: string,
+  password: string,
+  controlLabel?: boolean,
+}
+type PropsSignIn = {
+  error?: string | null,
+  sanAuthMailIn:
+ ( email: string, password: string, controlLabel?: boolean, )
+    => void,
 }

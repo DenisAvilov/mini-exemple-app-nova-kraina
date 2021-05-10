@@ -15,7 +15,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Avatar from '@material-ui/core/Avatar';
 
 import Grid from '@material-ui/core/Grid';
-import {  NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 // import theme from '../../themeStyles';
 import { CardMedia } from '@material-ui/core';
 
@@ -23,6 +23,7 @@ const useStyles = makeStyles( (theme: Theme) => createStyles( {
   root: {
     height: 60,
     padding: '10px 0',
+    backgroundColor: theme.palette.background.default,
     left: 0,
     position: 'absolute',
     top: 0,
@@ -68,8 +69,10 @@ const useStyles = makeStyles( (theme: Theme) => createStyles( {
 
 type Anchor = 'right';
 
-export default function HeaderMenu() {
+export default function HeaderMenu(
+    props: {isOpen: boolean, sanLogout: () => void, fullName: string}) {
   const classes = useStyles();
+
   const [state, setState] = React.useState({
     right: false,
   });
@@ -96,7 +99,17 @@ export default function HeaderMenu() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <NavLink to="/signin"
+        {props.isOpen
+        ? <NavLink to="/"
+          style={{
+            textDecoration: 'none',
+          }}>
+          <ListItem button>
+            <ListItemIcon> <InboxIcon />  </ListItemIcon>
+            <ListItemText secondary="Вихід" onClick={ () => props.sanLogout()}/>
+          </ListItem>
+        </NavLink>
+        : <React.Fragment> <NavLink to="/signin"
           style={{
             textDecoration: 'none',
           }}>
@@ -105,6 +118,17 @@ export default function HeaderMenu() {
             <ListItemText secondary="Вхід"/>
           </ListItem>
         </NavLink>
+        <NavLink to="/signup"
+          style={{
+            textDecoration: 'none',
+          }}>
+          <ListItem button>
+            <ListItemIcon> <InboxIcon />  </ListItemIcon>
+            <ListItemText secondary="Реєстрація"/>
+          </ListItem>
+        </NavLink>
+        </React.Fragment> }
+        { props.isOpen ?
         <NavLink to="/about"
           style={{
             textDecoration: 'none',
@@ -114,6 +138,7 @@ export default function HeaderMenu() {
             <ListItemText secondary={'Про мене'} />
           </ListItem>
         </NavLink>
+        : '' }
       </List>
 
       <Divider />
@@ -126,22 +151,16 @@ export default function HeaderMenu() {
       />
     </div>
   );
-
+  // console.log('hesder ', props.isOpen)
   return (
     <Grid container alignItems={'center'} className={classes.root}>
       <Grid item sm xs container alignItems="center" >
         <Grid item >
-          <NavLink className={classes.logo} to="" activeStyle={{
-            textDecoration: 'none',
-          }}>
-            {'Nova Kraїna'}
-          </NavLink>
-
+          <Logo />
         </Grid>
       </Grid>
       <Grid item sm xs container justify="flex-end" className={classes.burgerElement}>
-
-        {/* <Avatar src="/broken-image.jpg" /> */}
+        {props.isOpen ? <React.Fragment > {props.fullName} <Avatar src="/broken-image.jpg" /> </React.Fragment>: '' }
         <Button onClick={toggleDrawer('right', true)}><MenuIcon className={classes.colorThem}/></Button>
         <Drawer anchor={'right'} open={state['right']} onClose={toggleDrawer('right', false)}>
           {list('right')}
@@ -151,3 +170,13 @@ export default function HeaderMenu() {
   );
 }
 
+export const Logo: React.FC<any> = (props: any) => {
+  const classes = useStyles()
+  return (
+    <NavLink className={classes.logo} to="/" title={'На головну'} activeStyle={{
+      textDecoration: 'none',
+    }}>
+      {'Nova Kraїna'}
+    </NavLink>
+  )
+}

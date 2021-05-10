@@ -22,18 +22,21 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
-
 import './LandingBody.css'
 import React from 'react'
 import Fab from '@material-ui/core/Fab'
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import ArrowForward from '@material-ui/icons/ArrowForward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
+import ArrowForward from '@material-ui/icons/ArrowForward'
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
 const titleFonts = 'Yeseva One , cursive'
 const titleDopus = 'Caveat, cursive'
 type BodyTS = {}
 
 const useStyles = makeStyles( (theme: Theme) => createStyles(
     { margin: {
+      [theme.breakpoints.down('sm')]: {
+        marginBottom: '10px',
+      },
       // margin: theme.spacing(1),
       // transform: 'translate(-50%, -50%)',
       // left: '48%',
@@ -226,7 +229,7 @@ const useStyles = makeStyles( (theme: Theme) => createStyles(
       textDecoration: 'none',
       marginBottom: '10px',
       [theme.breakpoints.up('sm')]: {
-        marginLeft: '10px',
+        'marginLeft': '10px',
       },
     },
     pamatkaStyle: {
@@ -236,7 +239,7 @@ const useStyles = makeStyles( (theme: Theme) => createStyles(
 
 export const Body: React.FC<BodyTS> = () => {
   const classes = useStyles()
-  const anchors = ['novaKraina', 'vladaBezposeredno', 'vivchennyaPrava', 'potribenRozgolos'];
+  const anchors = ['novaKraina', 'vladaBezposeredno', 'vivchennyaPrava', 'potribenRozgolos', 'singup'];
   return (
     <ReactFullpage
       // fullpage options
@@ -281,7 +284,7 @@ export const Body: React.FC<BodyTS> = () => {
                         fullpageApi.moveSectionDown()
                       } }>
                         <ArrowDownwardIcon className={classes.extendedIcon} />
-                який перелік функції?
+                який перелік функцій?
                       </Fab>
                     </Grid>
                   </Grid>
@@ -408,9 +411,14 @@ export const Body: React.FC<BodyTS> = () => {
                     Приєднатись до спільноти
                         </Fab>
                       </a>
-                      <a href=' https://www.facebook.com/groups/900034500492310/' className={classes.a}>
+                      <a href='https://www.facebook.com/groups/900034500492310/' className={classes.a}>
                         <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
                     Приєднатись до групи
+                        </Fab>
+                      </a>
+                      <a href='/' className={classes.a}>
+                        <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
+                          {'Зареєструватись у мережі'}
                         </Fab>
                       </a>
                     </Grid>
@@ -456,7 +464,15 @@ export const Body: React.FC<BodyTS> = () => {
                     <Grid container item xs={12} sm={12} justify={'center'}>
                       <Paper className={classes.paper}>
                         <Typography variant="h5" align='center'>
-                        Ми як громадяни України, згідно 11 ст. К.У. маємо право самоорганізовуватися,
+                        Ми як громадяни України, згідно
+                          <a href='https://youtu.be/4xqZL9UNQmA'target="_blank" className={classes.a}> 5 </a>,
+                          <a href='https://youtu.be/Gu61DUmFmL4'target="_blank" className={classes.a}> 7 </a>,
+                          <a href='https://youtu.be/-YWTnJ-gClU'target="_blank" className={classes.a}> 13 </a>,
+                          <a href='https://youtu.be/-xjNEzk4B7E'target="_blank" className={classes.a}> 140 </a>,
+                          <a href='https://youtu.be/bs87kD65l-E'target="_blank" className={classes.a}> 141 </a>,
+                          <a href='https://youtu.be/5qDxb69SClw'target="_blank" className={classes.a}> 142 </a>,
+                          <a href='https://youtu.be/2GYYD76ZWss'target="_blank" className={classes.a}> 143 </a>,
+                            ст. К.У. маємо право самоорганізовуватися,
                         створювати органи місцевого самоврядування,
                         і реалізовувати через них, на зборах свої права.<br/>
                         Регулярна участь у прийнятті рішень за місцем проживання шляхом голосування онлайн,
@@ -484,103 +500,10 @@ export const Body: React.FC<BodyTS> = () => {
                     <Grid item xs={12} sm={8}>
                       <Paper className={classes.paper}>
                         <Typography variant="h5" align='center'>Спільне прийняття рішень має здійснюватися,
-через голосування на порядку денному може бути абсолютно будь-які питання що стосується ЖКГ та й питань місцевого самоуправління.
+через голосування на порядку денному може бути абсолютно будь-які питання що стосується ЖКГ та й питань місцевого самоврядування.
 Результатом голосувань буде протокол зборів громадян сформований автоматичним чином.
 Кожен учасник перед голосуванням отримує повний перелік питань і пропозицій у формі відповідній до Конституції України.
-Таким чином, вирішує де требо, наприклад: "пиляти або саджати" люди почнуть углибляться в правове поле глибше вивчаючи свої законні права і отримають механізм цими правами користуватись.
-                        </Typography>
-                      </Paper><br/>
-                      <Paper className={classes.paper}>
-                        <Typography variant="h6" align='center'>
-                        Приєднуйся до спільноти та групи для обговорення мережі у facebook
-                        </Typography>
-                      </Paper>
-                    </Grid>
-                    <Grid container item xs={12} sm={12} justify={'center'} >
-                      <a href='https://www.facebook.com/novakraina.pp.ua' className={classes.a}>
-                        <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
-                    Приєднатись до спільноти
-                        </Fab>
-                      </a>
-                      <a href=' https://www.facebook.com/groups/900034500492310/' className={classes.a}>
-                        <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
-                    Приєднатись до групи
-                        </Fab>
-                      </a>
-                    </Grid>
-
-                  </Grid>
-                </Container>
-              </div>
-            </div>
-            { /* Пам'ятка*/}
-            { /* <div className={`section `}>
-              <div className={`slide ${classes.img } ${classes.road}`} data-anchor="slide1">
-                <Container maxWidth="lg" className={`${classes.slidePravo}`}>
-                  <Grid container spacing={3} item xs={12} sm={12} className={`${classes.slidePravoFirst}`}>
-
-                    <Typography align="center" variant="h1" className={classes.titleFonts} >Па'ятка для кожного громадянина</Typography>
-                    <Grid container item xs={12} sm={12} justify={'center'}>
-                      <div className={classes.pamatkaStyle}>
-                        <CardMedia
-                          component="img"
-                          alt="Па'ятка для кожного громадянина"
-                          height="auto"
-                          image={`${pamatka}`}
-                          title="Па'ятка для кожного громадянина"
-                        />
-                      </div>
-
-                    </Grid>
-
-                    <Grid container item xs={12} sm={12} justify={'center'}>
-                      <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={() => {
-                        fullpageApi.moveSlideRight()
-                      } }>
-                        <ArrowForward className={classes.extendedIcon} />
-                        детально
-                      </Fab>
-                    </Grid>
-                  </Grid>
-                </Container>
-              </div>
-              <div className={`slide ${classes.img } ${classes.survey} `} data-anchor="slide2" >
-                <Container>
-                  <Grid container spacing={3} className={classes.vuvchenaPravoSlide2}>
-                    <Grid container item xs={12} sm={12} justify={'center'}>
-                      <Paper className={classes.paper}>
-                        <Typography variant="h5" align='center'>
-                        Якщо ти звичайний користувач соціальної мережі, зареєструйся у спільноті <a href='https://www.facebook.com/novakraina.pp.ua' className={classes.a}> Smart Ukraine </a> у facebook
-                          , цє допоможе врахувати потрєбу цього продукту. <br/> <br/>
-                          Якщо ти бажаєш долучитись до розробки цієї мережі або висловитись, прокоментувати, запропонувати щось, тоді реєструйся у групі <a href='https://www.facebook.com/groups/900034500492310/' className={classes.a}> Українська Соціальна Мережа Громад </a> сторінки Smart Ukraine
-
-                          <br/> <br/>
-                          А також реєструйтесь на цьому сайті, цей ресурс буде міні прототипом мережі
-                        </Typography>
-                      </Paper>
-                    </Grid>
-                    <Grid container item xs={12} sm={12} justify={'center'}>
-                      <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={() => {
-                        fullpageApi.moveSlideRight()
-                      } }>
-                        <ArrowForward className={classes.extendedIcon} />
-              Дізнатись
-                      </Fab>
-                    </Grid>
-                  </Grid>
-
-                </Container>
-              </div>
-              <div className={`slide ${classes.img } ${classes.finskiy} `} data-anchor="slide2" >
-                <Container>
-                  <Grid container spacing={3} justify={'center'} className={classes.vuvchenaPravoSlide2}>
-                    <Grid item xs={12} sm={8}>
-                      <Paper className={classes.paper}>
-                        <Typography variant="h5" align='center'>Спільне прийняття рішень має здійснюватися,
-                          через голосування на порядку денному може бути абсолютно будь-які питання що стосується ЖКГ та й питань місцевого самоуправління.
-                          Результатом голосувань буде протокол зборів громадян сформований автоматичним чином.
-                          Кожен учасник перед голосуванням отримує повний перелік питань і пропозицій у формі відповідній до Конституції України.
-                          Таким чином, вирішує де требо, наприклад: "пиляти або саджати" люди почнуть углибляться в правове поле глибше вивчаючи свої законні права і отримають механізм цими правами користуватись.
+Таким чином, вирішує де треба, наприклад: "пиляти або саджати" люди почнуть роглиблюватись в правове поле глибше вивчаючи свої законні права і отримають механізм цими правами користуватись.
                         </Typography>
                       </Paper><br/>
                       <Paper className={classes.paper}>
@@ -600,11 +523,17 @@ export const Body: React.FC<BodyTS> = () => {
                     Приєднатись до групи
                         </Fab>
                       </a>
+                      <a href="/#signup" className={classes.a}>
+                        <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
+                          {'Зареєструватись у мережі'}
+                        </Fab>
+                      </a>
                     </Grid>
+
                   </Grid>
                 </Container>
               </div>
-                    </div> */ }
+            </div>
             { /* Потрібен розголос*/}
             <div className={`section `}>
               <div className={`slide ${classes.img } ${classes.fantasy}`} data-anchor="slide1">
@@ -614,9 +543,8 @@ export const Body: React.FC<BodyTS> = () => {
                     <Typography align="center" variant="h1" className={classes.titleFonts} >Потрібен розголос</Typography>
 
                     <Typography align='center' variant='button' component="h2" className={classes.myTypography} >
-                    Все залежіть від нас  <br/>
-                    Пам'ятай, що Ковчег змайструв любитель, а
-                    титанік професіонали.
+                    Кожен з нас хто змінює себе, той змінює світ <br/>
+
                       <br/>
                             Чим я можу бути корисним?
                     </Typography>
@@ -625,13 +553,13 @@ export const Body: React.FC<BodyTS> = () => {
                         fullpageApi.moveSlideRight()
                       } }>
                         <ArrowForward className={classes.extendedIcon} />
-                        детально
+                        дізнатись
                       </Fab>
                     </Grid>
                   </Grid>
                 </Container>
               </div>
-              <div className={`slide ${classes.img } ${classes.field} `} data-anchor="slide2" >
+              <div className={`slide ${classes.img } ${classes.field} `} data-anchor="vse-zalezut-vid-tebe" >
                 <Container>
                   <Grid container spacing={3} className={classes.vuvchenaPravoSlide2}>
                     <Grid container item xs={12} sm={12} justify={'center'}>
@@ -640,17 +568,32 @@ export const Body: React.FC<BodyTS> = () => {
                         Якщо ти звичайний користувач соціальної мережі, зареєструйся у спільноті <a href='https://www.facebook.com/novakraina.pp.ua' className={classes.a}> Smart Ukraine </a> у facebook
                           , цє допоможе врахувати потрєбу цього продукту. <br/> <br/>
                           Якщо ти бажаєш долучитись до розробки цієї мережі або висловитись, прокоментувати,
-                          запропонувати щось, тоді реєструйся у групі <a href='https://www.facebook.com/groups/900034500492310/' className={classes.a}> Українська Соціальна Мережа Громад </a> сторінки Smart Ukraine
+                          запропонувати щось, тоді реєструйся у групі
+                          <a href='https://www.facebook.com/groups/900034500492310/' className={classes.a}> Українська Соціальна Мережа Громад </a> сторінки
+                          <a href='https://www.facebook.com/novakraina.pp.ua' className={classes.a}> Smart Ukraine </a>
 
                           <br/> <br/>
-                          А також реєструйтесь на цьому сайті, цей ресурс буде міні прототипом мережі
+                          А також <a href="/#signup" className={classes.a} data-anchor="singup">
+                            {'реєструйтесь на цьому сайті'}
+                          </a>, цей ресурс буде міні прототипом мережі
                           <br/> <br/>
-                          Величезна подяка свідомим Українцям які надихають та відчиняють завісу масової бессознательності,
+                          Величезна подяка свідомим Українцям які надихають та відчиняють завісу масової безсвідомості,
                           за ради спільної мети - мати достойне життя у своїй країні. <br/> <br/>
-                          <a href="http://bagnetnacii.blogspot.com/">ГО ОПГ "Багнет Нації"</a> <br/>
-                          <a href="https://budmo.in.ua/">Школа Конституції</a> <br/>
-                          <a href="http://ukr-merezha.com/">Суспільна система</a> <br/>
-                          <a href="https://spgr.org.ua/">Справа громад</a> <br/>
+                          <a href="http://bagnetnacii.blogspot.com/" className={classes.a}>
+                            <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
+                              {'ГО ОПГ "Багнет Нації"'}
+                            </Fab>
+                          </a>
+                          <a href="https://budmo.in.ua/" className={classes.a}>
+                            <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
+                              {'Школа Конституції'}
+                            </Fab>
+                          </a>
+                          <a href="http://ukr-merezha.com/" className={classes.a}>
+                            <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
+                              {'Суспільна система'}
+                            </Fab>
+                          </a>
                         </Typography>
                       </Paper>
                     </Grid>
