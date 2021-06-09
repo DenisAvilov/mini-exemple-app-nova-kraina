@@ -1,6 +1,4 @@
-import ReactDOM from 'react-dom'
 import ReactFullpage from '@fullpage/react-fullpage'
-import './Body.css'
 import fon2mini from './../../img/learn_main_page.jpg'
 import pravovePole from './../../img/unsplash.jpg'
 import voidOnlineImg from './../../img/fon2mini.jpg'
@@ -14,7 +12,6 @@ import fantasy from './../../img/fantasy.jpg'
 import pamatka from './../../img/pamatka.png'
 import handsome from './../../img/handsome.png'
 import road from './../../img/road.jpg'
-// import time from './../../img/time.mp4'
 import schoolUkraine from './../../img/schoolUkraine.jpg';
 import { makeStyles, createStyles, Theme} from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
@@ -22,33 +19,21 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
-import './LandingBody.css'
+import './landing.css'
 import React from 'react'
 import Fab from '@material-ui/core/Fab'
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 import ArrowForward from '@material-ui/icons/ArrowForward'
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
 const titleFonts = 'Yeseva One , cursive'
 const titleDopus = 'Caveat, cursive'
-type BodyTS = {}
+
 
 const useStyles = makeStyles( (theme: Theme) => createStyles(
     { margin: {
       [theme.breakpoints.down('sm')]: {
         marginBottom: '10px',
       },
-      // margin: theme.spacing(1),
-      // transform: 'translate(-50%, -50%)',
-      // left: '48%',
-      // right: '50%',
-      // top: '30%',
       zIndex: 3333,
-      // [theme.breakpoints.down('sm')]: {
-      //   transform: 'translate(-50%, 29px)',
-      // },
-      // [theme.breakpoints.up('sm')]: {
-      //   transform: 'translate(-50%, -50%)',
-      // },
     },
     extendedIcon: {
       // marginRight: theme.spacing(1),
@@ -237,42 +222,44 @@ const useStyles = makeStyles( (theme: Theme) => createStyles(
     },
     } ) )
 
-export const Body: React.FC<BodyTS> = () => {
+export const Landing: React.FC<TSlanding> = (props:TSlanding) => {
   const classes = useStyles()
-  const anchors = ['novaKraina', 'vladaBezposeredno', 'vivchennyaPrava', 'potribenRozgolos', 'singup'];
+  const anchors = ['novaKraina', 'vladaBezposeredno',
+    'vivchennyaPrava', 'potribenRozgolos', 'singup'];
   return (
     <ReactFullpage
-      // fullpage options
       licenseKey = {'OPEN-SOURCE-GPLV3-LICENSE'}
-      scrollingSpeed = {1000} /* Options here */
+      scrollingSpeed = {500}
       scrollHorizontally = {true}
       scrollHorizontallyKey = {'YOUR KEY HERE'}
       continuousHorizontal = {true}
       navigation = {true}
       slidesNavigation = {true}
-      // fitToSection = {true}
-      // paddingTop = {'200px'}
       loopHorizontal = {false}
       scrollBar = {true}
       anchors = {anchors}
-      // continuousHorizontal = {true}
       render={({ state, fullpageApi }) => {
         return (
 
           <ReactFullpage.Wrapper>
             <div className={`section mySectionTest`} >
-              <div className={`slide ${classes.img } ${classes.img2} `} data-anchor="slide1" >
+              <div className={`slide ${classes.img } ${classes.img2} `}
+                data-anchor="slide1" >
                 <Container maxWidth="lg" >
                   <Grid container item xs={12} className={classes.wrapLogo}>
-                    <Grid container item xs={12} sm={6} className={classes.logo}>
+                    <Grid container item xs={12} sm={6}
+                      className={classes.logo}>
                       <Typography className={classes.titleFonts}>
-                        NOVA<br className={classes.titleFontsBr} /> UKRAЇNА</Typography>
+                        NOVA<br className={classes.titleFontsBr} />
+                          UKRAЇNА</Typography>
                       <Typography className={classes.titleDopus}>
                         Прийшов час розставити крапки над Ї
                       </Typography>
                     </Grid>
-                    <Grid container item xs={12} sm={6} className={classes.logoDiscription}>
-                      <Typography variant='button' component="h2" className={classes.myTypography} align='center'>
+                    <Grid container item xs={12} sm={6}
+                      className={classes.logoDiscription}>
+                      <Typography variant='button' component="h2"
+                        className={classes.myTypography} align='center'>
                       Розбудова проєкту соціальної мережі
                       територіальних громад України<br/>
                       яку ми повинні створити власноруч
@@ -280,9 +267,9 @@ export const Body: React.FC<BodyTS> = () => {
 
                     </Grid>
                     <Grid container item xs={12} sm={12} justify={'center'}>
-                      <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={() => {
-                        fullpageApi.moveSectionDown()
-                      } }>
+                      <Fab variant="extended" color="primary" aria-label="add"
+                        className={classes.margin}
+                        onClick={() => fullpageApi.moveSectionDown() }>
                         <ArrowDownwardIcon className={classes.extendedIcon} />
                 який перелік функцій?
                       </Fab>
@@ -293,10 +280,14 @@ export const Body: React.FC<BodyTS> = () => {
               </div>
             </div>
             <div className={`section `}>
-              <div className={`slide ${classes.img} ${classes.img3}` } data-anchor="slide1">
+              <div className={`slide ${classes.img} ${classes.img3}` }
+                data-anchor="slide1">
                 <Container maxWidth="lg" >
-                  <Typography variant="h1" align='center' className={`${classes.titleFonts} ${classes.secondSlide}`}>
-                  Здійснювати владу <br className={classes.titleFontsBr} /> безпосередньо</Typography>
+                  <Typography variant="h1" align='center'
+                    className={`${classes.titleFonts} ${classes.secondSlide}`}>
+                  Здійснювати владу <br
+                      className={classes.titleFontsBr} />
+                        безпосередньо</Typography>
                   <Grid container spacing={3} >
                     <Grid item xs={12} sm={6} >
                       <CardMedia
@@ -305,57 +296,69 @@ export const Body: React.FC<BodyTS> = () => {
                         title="Void online"
                       />
                     </Grid>
-                    <Grid container item xs={12} sm={6} justify={'center'} direction={'column'}>
-                      <Typography variant='button' component="h2" className={classes.myTypography} align='center'>
-                        Прийняття рішень територіальних громад,<br/>через голосування ONLINE
+                    <Grid container item xs={12} sm={6} justify={'center'}
+                      direction={'column'}>
+                      <Typography variant='button' component="h2"
+                        className={classes.myTypography} align='center'>
+                        Прийняття рішень територіальних громад,
+                        <br/>через голосування ONLINE
                       </Typography>
                     </Grid>
-                    <Grid container item xs={12} sm={12} justify={'space-around'}>
-                      <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={() => {
-                        fullpageApi.moveSectionDown()
-                      } }>
+                    <Grid container item xs={12} sm={12}
+                      justify={'space-around'}>
+                      <Fab variant="extended"
+                        color="primary" aria-label="add"
+                        className={classes.margin}
+                        onClick={() => fullpageApi.moveSectionDown() }>
                         <ArrowDownwardIcon className={classes.extendedIcon} />
-                Далі
+                            Далі
                       </Fab>
-                      <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={() => {
-                        fullpageApi.moveSlideRight()
-                      } }>
+                      <Fab variant="extended"
+                        color="primary" aria-label="add"
+                        className={classes.margin}
+                        onClick={() => fullpageApi.moveSlideRight()}>
                         <ArrowForward className={classes.extendedIcon} />
-                        детально
+                            детально
                       </Fab>
                     </Grid>
                   </Grid>
                 </Container>
               </div>
-              <div className={`slide ${classes.img } ${classes.imgMedia} `} data-anchor="slide2" >
+              <div className={`slide ${classes.img } 
+              ${classes.imgMedia} `} data-anchor="slide2" >
                 <Container>
-                  <Grid container spacing={3} className={classes.vuvchenaPravoSlide2}>
+                  <Grid container spacing={3}
+                    className={classes.vuvchenaPravoSlide2}>
                     <Grid container item xs={12} sm={12} justify={'center'} >
                       <Paper className={classes.paper}>
                         <Typography variant="h5" align='center'>
                         Жодна соціальна мережа не здатна бути гарантом прозорих
                         виборів, а ні на рівні ЖКГ, та на жодному іншому рівні.
-                        Але національна непровладна мережа на таке може бути здатна.
+                        Але національна непровладна мережа
+                        на таке може бути здатна.
                           <br/>  <br/>
-                          Мережа повинна об'єднати людей які проживають, за постійним місцем проживання,
-                          та надати їм можливість керувати цим майном, та забезпечити контроль над чиновниками.
+                          Мережа повинна об'єднати людей які проживають,
+                          за постійним місцем проживання,
+                          та надати їм можливість керувати цим майном,
+                          та забезпечити контроль над чиновниками.
                           <br/>  <br/>
                         На яких рівнях життя, може бути корисна ця мережа?
                         </Typography>
                       </Paper>
                     </Grid>
                     <Grid container item xs={12} sm={12} justify={'center'}>
-                      <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={() => {
-                        fullpageApi.moveSlideRight()
-                      } }>
+                      <Fab variant="extended" color="primary" aria-label="add"
+                        className={classes.margin}
+                        onClick={() => fullpageApi.moveSlideRight() }>
                         <ArrowForward className={classes.extendedIcon} />
-              Дізнатись
+                          Дізнатись
                       </Fab>
                     </Grid>
                   </Grid>
                 </Container>
               </div>
-              <div className={`slide ${classes.img } ${classes.ukraine} `} data-anchor="slide2" >
+              <div className={`slide ${classes.img } ${classes.ukraine} `}
+                data-anchor="slide2" >
                 <Container>
                   <Grid container spacing={3} >
                     <Grid container item xs={12} sm={12} justify={'center'}>
@@ -366,22 +369,29 @@ export const Body: React.FC<BodyTS> = () => {
                           Не обов'язково збиратись на вулиці.<br/>
                           Голосувати можна 24/7 онлайн.<br/>
 
-                          Спрощує збори громади у дитячих садочках, шкілках або інших государствених установах,
-                          які є власністю громади, допомагає контролювати надходження та розподіл грошевих одиниць.<br/>
+                          Спрощує збори громади у дитячих садочках,
+                          шкілках або інших государствених установах,
+                          які є власністю громади, допомагає контролювати
+                          надходження та розподіл грошевих одиниць.<br/>
 
-                          Співпраця з комунальними придпріятіями як власник не як споживач. Наприклад: Укргаз тощо. <br/>
+                          Співпраця з комунальними придпріятіями як
+                          власник не як споживач. Наприклад: Укргаз тощо. <br/>
 
-                          Мережа має надати можливість мати прозорий рейтинг чиновників усіх рівнів всіх регіонів.<br/>
-                          та якщо рейтинг на красній лінії, то вибори можуть початись у автомотичному режимі.
+                          Мережа має надати можливість мати прозорий
+                          рейтинг чиновників усіх рівнів всіх регіонів.<br/>
+                          та якщо рейтинг на красній лінії,
+                          то вибори можуть початись у автомотичному режимі.
                           <br/><br/>
-                          На реалізацію потрібен час. Це можна зробити об'єднавши зусилля!
+                          На реалізацію потрібен час.
+                          Це можна зробити об'єднавши зусилля!
                         </Typography>
                       </Paper>
                     </Grid>
                     <Grid container item xs={12} sm={12} justify={'center'}>
-                      <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={() => {
-                        fullpageApi.moveSlideRight()
-                      } }>
+                      <Fab variant="extended" color="primary" aria-label="add"
+                        className={classes.margin}
+                        onClick={() => fullpageApi.moveSlideRight()
+                        }>
                         <ArrowForward className={classes.extendedIcon} />
               чому це не зробить чинна "влада"?
                       </Fab>
@@ -389,35 +399,43 @@ export const Body: React.FC<BodyTS> = () => {
                   </Grid>
                 </Container>
               </div>
-              <div className={`slide ${classes.img } ${classes.handsome} `} data-anchor="slide2" >
+              <div className={`slide ${classes.img }
+              ${classes.handsome} `} data-anchor="slide2" >
                 <Container>
                   <Grid container spacing={3} >
                     <Grid container item xs={12} sm={12} justify={'center'}>
                       <Paper className={classes.paper}>
                         <Typography variant="h5" align='center'>
-                        Наявна "влада" створює сервіси котрі допомагають платити за рахунками.
-                        Вони жодним чином не допомагають громадянам здійснювати владу, та користуватись своїми
+                        Наявна "влада" створює сервіси
+                        котрі допомагають платити за рахунками.
+                        Вони жодним чином не допомагають
+                        громадянам здійснювати владу,
+                        та користуватись своїми
                         конституційними правами <br/> <br/>
                         "влада" робить все щоб контролювати, а не співпрацювати
                         </Typography><br/><br/>
                         <Typography variant="h5" align='center'>
-                        Приєднуйся до спільноти та групи для обговорення мережі у facebook
+                        Приєднуйся до спільноти та групи
+                        для обговорення мережі у facebook
                         </Typography>
                       </Paper>
                     </Grid>
                     <Grid container item xs={12} sm={12} justify={'center'} >
                       <a href='https://www.facebook.com/novakraina.pp.ua' className={classes.a}>
-                        <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
-                    Приєднатись до спільноти
+                        <Fab variant="extended" color="primary"
+                          aria-label="add" className={classes.margin} >
+                          Приєднатись до спільноти
                         </Fab>
                       </a>
                       <a href='https://www.facebook.com/groups/900034500492310/' className={classes.a}>
-                        <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
-                    Приєднатись до групи
+                        <Fab variant="extended" color="primary"
+                          aria-label="add" className={classes.margin} >
+                          Приєднатись до групи
                         </Fab>
                       </a>
                       <a href='/' className={classes.a}>
-                        <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
+                        <Fab variant="extended" color="primary"
+                          aria-label="add" className={classes.margin} >
                           {'Зареєструватись у мережі'}
                         </Fab>
                       </a>
@@ -427,13 +445,18 @@ export const Body: React.FC<BodyTS> = () => {
               </div>
             </div>
             <div className={`section `}>
-              <div className={`slide ${classes.img } ${classes.img1}`} data-anchor="slide1">
+              <div className={`slide ${classes.img }
+                ${classes.img1}`} data-anchor="slide1">
                 <Container maxWidth="lg" className={`${classes.slidePravo}`}>
-                  <Grid container spacing={3} item xs={12} sm={12} className={`${classes.slidePravoFirst}`}>
+                  <Grid container spacing={3} item xs={12}
+                    sm={12} className={`${classes.slidePravoFirst}`}>
 
-                    <Typography align="center" variant="h1" className={classes.titleFonts} >Вивчення права</Typography>
+                    <Typography align="center" variant="h1"
+                      className={classes.titleFonts} >
+                        Вивчення права</Typography>
 
-                    <Typography align='center' variant='button' component="h2" className={classes.myTypography} >
+                    <Typography align='center' variant='button'
+                      component="h2" className={classes.myTypography} >
                     На практичних прикладах  <br/>
                             у повсякденному житті
                     покращувати рівень свідомості
@@ -441,16 +464,17 @@ export const Body: React.FC<BodyTS> = () => {
                       <br/>
                             як це може бути?
                     </Typography>
-                    <Grid container item xs={12} sm={12} justify={'space-around'}>
-                      <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={() => {
-                        fullpageApi.moveSectionDown()
-                      } }>
+                    <Grid container item xs={12}
+                      sm={12} justify={'space-around'}>
+                      <Fab variant="extended" color="primary" aria-label="add"
+                        className={classes.margin}
+                        onClick={() => fullpageApi.moveSectionDown() }>
                         <ArrowDownwardIcon className={classes.extendedIcon} />
-                Далі
+                        Далі
                       </Fab>
-                      <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={() => {
-                        fullpageApi.moveSlideRight()
-                      } }>
+                      <Fab variant="extended" color="primary"
+                        aria-label="add" className={classes.margin}
+                        onClick={() => fullpageApi.moveSlideRight() }>
                         <ArrowForward className={classes.extendedIcon} />
                         детально
                       </Fab>
@@ -458,34 +482,40 @@ export const Body: React.FC<BodyTS> = () => {
                   </Grid>
                 </Container>
               </div>
-              <div className={`slide ${classes.img } ${classes.survey} `} data-anchor="slide2" >
+              <div className={`slide ${classes.img } ${classes.survey} `}
+                data-anchor="slide2" >
                 <Container>
-                  <Grid container spacing={3} className={classes.vuvchenaPravoSlide2}>
+                  <Grid container spacing={3}
+                    className={classes.vuvchenaPravoSlide2}>
                     <Grid container item xs={12} sm={12} justify={'center'}>
                       <Paper className={classes.paper}>
                         <Typography variant="h5" align='center'>
                         Ми як громадяни України, згідно
-                          <a href='https://youtu.be/4xqZL9UNQmA'target="_blank" className={classes.a}> 5 </a>,
-                          <a href='https://youtu.be/Gu61DUmFmL4'target="_blank" className={classes.a}> 7 </a>,
-                          <a href='https://youtu.be/-YWTnJ-gClU'target="_blank" className={classes.a}> 13 </a>,
-                          <a href='https://youtu.be/-xjNEzk4B7E'target="_blank" className={classes.a}> 140 </a>,
-                          <a href='https://youtu.be/bs87kD65l-E'target="_blank" className={classes.a}> 141 </a>,
-                          <a href='https://youtu.be/5qDxb69SClw'target="_blank" className={classes.a}> 142 </a>,
-                          <a href='https://youtu.be/2GYYD76ZWss'target="_blank" className={classes.a}> 143 </a>,
+                          <a href='https://youtu.be/4xqZL9UNQmA'target="_blank" rel="noopener noreferrer" className={classes.a}> 5 </a>,
+                          <a href='https://youtu.be/Gu61DUmFmL4'target="_blank" rel="noopener noreferrer" className={classes.a}> 7 </a>,
+                          <a href='https://youtu.be/-YWTnJ-gClU'target="_blank" rel="noopener noreferrer" className={classes.a}> 13 </a>,
+                          <a href='https://youtu.be/-xjNEzk4B7E'target="_blank" rel="noopener noreferrer" className={classes.a}> 140 </a>,
+                          <a href='https://youtu.be/bs87kD65l-E'target="_blank" rel="noopener noreferrer" className={classes.a}> 141 </a>,
+                          <a href='https://youtu.be/5qDxb69SClw'target="_blank" rel="noopener noreferrer" className={classes.a}> 142 </a>,
+                          <a href='https://youtu.be/2GYYD76ZWss'target="_blank" rel="noopener noreferrer" className={classes.a}> 143 </a>,
                             ст. К.У. маємо право самоорганізовуватися,
                         створювати органи місцевого самоврядування,
-                        і реалізовувати через них, на зборах свої права.<br/>
-                        Регулярна участь у прийнятті рішень за місцем проживання шляхом голосування онлайн,
-                        використовуючи вбудований інструмент в українській соціальній мережі - поліпшить свідомість громодян.
+                        і реалізовувати через них,
+                        на зборах свої права.<br/>
+                        Регулярна участь у прийнятті рішень за місцем
+                        проживання шляхом голосування онлайн,
+                        використовуючи вбудований інструмент в
+                        українській соціальній мережі
+                        - поліпшить свідомість громодян.
                           <br/> <br/>
                         Які питання можна вирішити, не виходячи з дому?
                         </Typography>
                       </Paper>
                     </Grid>
                     <Grid container item xs={12} sm={12} justify={'center'}>
-                      <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={() => {
-                        fullpageApi.moveSlideRight()
-                      } }>
+                      <Fab variant="extended" color="primary"
+                        aria-label="add" className={classes.margin}
+                        onClick={() => fullpageApi.moveSlideRight() }>
                         <ArrowForward className={classes.extendedIcon} />
               Дізнатись
                       </Fab>
@@ -494,37 +524,52 @@ export const Body: React.FC<BodyTS> = () => {
 
                 </Container>
               </div>
-              <div className={`slide ${classes.img } ${classes.finskiy} `} data-anchor="slide2" >
+              <div className={`slide ${classes.img } 
+              ${classes.finskiy} `} data-anchor="slide2" >
                 <Container>
-                  <Grid container spacing={3} justify={'center'} className={classes.vuvchenaPravoSlide2}>
+                  <Grid container spacing={3} justify={'center'}
+                    className={classes.vuvchenaPravoSlide2}>
                     <Grid item xs={12} sm={8}>
                       <Paper className={classes.paper}>
-                        <Typography variant="h5" align='center'>Спільне прийняття рішень має здійснюватися,
-через голосування на порядку денному може бути абсолютно будь-які питання що стосується ЖКГ та й питань місцевого самоврядування.
-Результатом голосувань буде протокол зборів громадян сформований автоматичним чином.
-Кожен учасник перед голосуванням отримує повний перелік питань і пропозицій у формі відповідній до Конституції України.
-Таким чином, вирішує де треба, наприклад: "пиляти або саджати" люди почнуть роглиблюватись в правове поле глибше вивчаючи свої законні права і отримають механізм цими правами користуватись.
+                        <Typography variant="h5"
+                          align='center'>
+                Спільне прийняття рішень має здійснюватися,
+                через голосування на порядку денному може бути
+                абсолютно будь-які питання що
+                стосується ЖКГ та й питань місцевого самоврядування.
+                Результатом голосувань буде протокол
+                зборів громадян сформований автоматичним чином.
+                Кожен учасник перед голосуванням отримує повний перелік
+                питань і пропозицій у формі відповідній до Конституції України.
+                Таким чином, вирішує де треба, наприклад:
+                "пиляти або саджати" люди почнуть роглиблюватись в правове поле
+                глибше вивчаючи свої законні права
+                і отримають механізм цими правами користуватись.
                         </Typography>
                       </Paper><br/>
                       <Paper className={classes.paper}>
                         <Typography variant="h6" align='center'>
-                        Приєднуйся до спільноти та групи для обговорення мережі у facebook
+                        Приєднуйся до спільноти та групи
+                        для обговорення мережі у facebook
                         </Typography>
                       </Paper>
                     </Grid>
                     <Grid container item xs={12} sm={12} justify={'center'} >
                       <a href='https://www.facebook.com/novakraina.pp.ua' className={classes.a}>
-                        <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
+                        <Fab variant="extended" color="primary"
+                          aria-label="add" className={classes.margin} >
                     Приєднатись до спільноти
                         </Fab>
                       </a>
                       <a href='https://www.facebook.com/groups/900034500492310/' className={classes.a}>
-                        <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
+                        <Fab variant="extended" color="primary"
+                          aria-label="add" className={classes.margin} >
                     Приєднатись до групи
                         </Fab>
                       </a>
                       <a href="/#signup" className={classes.a}>
-                        <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
+                        <Fab variant="extended" color="primary"
+                          aria-label="add" className={classes.margin} >
                           {'Зареєструватись у мережі'}
                         </Fab>
                       </a>
@@ -536,22 +581,27 @@ export const Body: React.FC<BodyTS> = () => {
             </div>
             { /* Потрібен розголос*/}
             <div className={`section `}>
-              <div className={`slide ${classes.img } ${classes.fantasy}`} data-anchor="slide1">
+              <div className={`slide ${classes.img } ${classes.fantasy}`}
+                data-anchor="slide1">
                 <Container maxWidth="lg" className={`${classes.slidePravo}`}>
-                  <Grid container spacing={3} item xs={12} sm={12} className={`${classes.slidePravoFirst}`}>
+                  <Grid container spacing={3} item xs={12} sm={12}
+                    className={`${classes.slidePravoFirst}`}>
 
-                    <Typography align="center" variant="h1" className={classes.titleFonts} >Потрібен розголос</Typography>
+                    <Typography align="center" variant="h1"
+                      className={classes.titleFonts} >
+                        Потрібен розголос</Typography>
 
-                    <Typography align='center' variant='button' component="h2" className={classes.myTypography} >
+                    <Typography align='center' variant='button' component="h2"
+                      className={classes.myTypography} >
                     Кожен з нас хто змінює себе, той змінює світ <br/>
 
                       <br/>
                             Чим я можу бути корисним?
                     </Typography>
                     <Grid container item xs={12} sm={12} justify={'center'}>
-                      <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={() => {
-                        fullpageApi.moveSlideRight()
-                      } }>
+                      <Fab variant="extended" color="primary" aria-label="add"
+                        className={classes.margin}
+                        onClick={() => fullpageApi.moveSlideRight() }>
                         <ArrowForward className={classes.extendedIcon} />
                         дізнатись
                       </Fab>
@@ -559,38 +609,48 @@ export const Body: React.FC<BodyTS> = () => {
                   </Grid>
                 </Container>
               </div>
-              <div className={`slide ${classes.img } ${classes.field} `} data-anchor="vse-zalezut-vid-tebe" >
+              <div className={`slide ${classes.img } ${classes.field} `}
+                data-anchor="vse-zalezut-vid-tebe" >
                 <Container>
-                  <Grid container spacing={3} className={classes.vuvchenaPravoSlide2}>
+                  <Grid container spacing={3}
+                    className={classes.vuvchenaPravoSlide2}>
                     <Grid container item xs={12} sm={12} justify={'center'}>
                       <Paper className={classes.paper}>
-                        <Typography variant="h5" align='center' className={classes.a}>
-                        Якщо ти звичайний користувач соціальної мережі, зареєструйся у спільноті <a href='https://www.facebook.com/novakraina.pp.ua' className={classes.a}> Smart Ukraine </a> у facebook
-                          , цє допоможе врахувати потрєбу цього продукту. <br/> <br/>
-                          Якщо ти бажаєш долучитись до розробки цієї мережі або висловитись, прокоментувати,
+                        <Typography variant="h5" align='center'
+                          className={classes.a}>
+                        Якщо ти звичайний користувач соціальної мережі,
+                        зареєструйся у спільноті
+                          <a href='https://www.facebook.com/novakraina.pp.ua'
+                            className={classes.a}> Smart Ukraine </a> у facebook
+                          , цє допоможе врахувати потрєбу
+                          цього продукту. <br/> <br/>
+                          Якщо ти бажаєш долучитись до розробки
+                          цієї мережі або висловитись, прокоментувати,
                           запропонувати щось, тоді реєструйся у групі
                           <a href='https://www.facebook.com/groups/900034500492310/' className={classes.a}> Українська Соціальна Мережа Громад </a> сторінки
                           <a href='https://www.facebook.com/novakraina.pp.ua' className={classes.a}> Smart Ukraine </a>
 
                           <br/> <br/>
-                          А також <a href="/#signup" className={classes.a} data-anchor="singup">
+                          А також <a href="/#signup"
+                            className={classes.a} data-anchor="singup">
                             {'реєструйтесь на цьому сайті'}
                           </a>, цей ресурс буде міні прототипом мережі
                           <br/> <br/>
-                          Величезна подяка свідомим Українцям які надихають та відчиняють завісу масової безсвідомості,
-                          за ради спільної мети - мати достойне життя у своїй країні. <br/> <br/>
-                          <a href="http://bagnetnacii.blogspot.com/" className={classes.a}>
-                            <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
-                              {'ГО ОПГ "Багнет Нації"'}
-                            </Fab>
-                          </a>
+                          Величезна подяка свідомим Українцям які
+                          надихають та відчиняють завісу масової безсвідомості,
+                          за ради спільної мети -
+                          мати достойне життя у своїй країні. <br/> <br/>
                           <a href="https://budmo.in.ua/" className={classes.a}>
-                            <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
+                            <Fab variant="extended" color="primary"
+                              aria-label="add"
+                              className={classes.margin} >
                               {'Школа Конституції'}
                             </Fab>
                           </a>
                           <a href="http://ukr-merezha.com/" className={classes.a}>
-                            <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} >
+                            <Fab variant="extended"
+                              color="primary" aria-label="add"
+                              className={classes.margin} >
                               {'Суспільна система'}
                             </Fab>
                           </a>
@@ -612,5 +672,5 @@ export const Body: React.FC<BodyTS> = () => {
   )
 };
 
-ReactDOM.render(<Body />, document.getElementById('root'));
-// "homepage": "https://denisavilov.github.io/Nova_Kraina_deploy",
+type TSlanding = {
+}

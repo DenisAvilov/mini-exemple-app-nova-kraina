@@ -1,43 +1,48 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setStatus } from '../../redux/profile_reduce'
+import { avatarChangeSun, profileStoreSun} from '../../redux/general'
 import { RootReducerType } from '../../redux/redux'
-import { authUsersEmail, resProfile } from '../../redux/reselect'
+import { profile } from '../../redux/reselect'
 import { Profile } from './Profile'
+import { TSdefaultProfile } from '../../redux/typesTs'
+import { compose } from 'redux'
 
 class ProfileContainer extends React.Component< ProfileTS > {
-  componentDidUpdate(prevProps:any) {
-    if (this.props.uid != prevProps.uid) {
-      this.props.setStatus(this.props.uid)
-    }
-  }
+
   render() {
-    let { fullName, status } = this.props
+    const {profile, avatarChangeSun, uid} = this.props
     return (
-      <Profile fullName={fullName} status={status}/>
+      <Profile profile={profile} uid={uid}
+        avatarChangeSun={avatarChangeSun} avatar={profile.photo.avatar}/>
     )
   }
 }
 
 const mapStateToProps = (state:RootReducerType) : MapStateToPropsTS => {
   return {
-    fullName: authUsersEmail(state).fullName,
-    uid: authUsersEmail(state).uid,
-    status: resProfile(state).status,
+    isOpen: profile(state).profile.isOpen,
+    profile: profile(state).profile,
+    uid: state.general.uid,
   }
 }
 
-export default connect<MapStateToPropsTS, DispatchPropsTS,
- OwnStateTS, RootReducerType>(
-     mapStateToProps, {setStatus} )(ProfileContainer)
+export default compose(
+    // withRouter,
+    // redirect,
+    connect<MapStateToPropsTS, DispatchPropsTS,
+  OwnStateTS, RootReducerType>(mapStateToProps, { avatarChangeSun, profileStoreSun} )
+)(ProfileContainer)
+
 
 type MapStateToPropsTS = {
-    fullName: string
-    uid: string
-    status: string
+  isOpen: boolean
+  profile: TSdefaultProfile
+  uid: string
 }
+
 type DispatchPropsTS = {
-  setStatus: (uid: string) => void
+  profileStoreSun: (avatar?: null | string | File | undefined) => void
+  avatarChangeSun: (fileUse: File, uid: string) => void
 }
 type OwnStateTS = {}
 

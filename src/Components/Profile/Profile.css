@@ -1,22 +1,4 @@
 
- /* .profile_full_name{
-    height: 118.4px;
-    background-color: hotpink;
-    box-sizing: border-box;
-} */
-/* .profile_full_name article{
-text-align: center;
-} */
- .profile_full_name article h1, 
- .profile_full_name article p{
- margin: 0 auto;
-}
- .profile_scrablle_tabs{
-    height: 60px;
-    background-color: maroon;
-    max-width: 940px;
-}
-.profile_posts_information_wrap{
-    /* max-width: 40%;     */
-    background-color: blueviolet;
+.MuiGrid-spacing-xs-2 > .MuiGrid-item {
+    padding: 0;
 }
