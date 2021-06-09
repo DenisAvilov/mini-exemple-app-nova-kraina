@@ -1,25 +1,33 @@
 import {createSelector} from 'reselect'
 import { RootReducerType } from './redux'
-const authEmail = (state: RootReducerType) => {
-  return state.userAuthMail
-}
-const authUpEmail = (state: RootReducerType) => {
-  return state.userUpEmail.getInspired
+const init = (state: RootReducerType) => {
+  return state.init
 }
 
-const profile = (state: RootReducerType) => {
-  return state.profile
+const authEmail = (state: RootReducerType) => {
+  return state.general
 }
-export const resProfile = createSelector( profile, (profile) => {
+
+const general = (state: RootReducerType) => {
+  return state.general
+}
+const authProfile = (state: RootReducerType) => {
+  return state.general
+}
+
+export const initRes = createSelector(
+    init, (saccess) => {
+      return saccess
+    })
+
+
+export const profile = createSelector( authProfile, (profile) => {
   return profile
 })
-
-export const resAuthUpEmail = createSelector( authUpEmail, (authUpEmail) => {
-  return authUpEmail
+export const photo = createSelector( general, (general) => {
+  return general
 })
 export const authUsersEmail = createSelector( authEmail, (authEmail) => {
   return authEmail
 })
-export const idToken = createSelector( authEmail, (idToken) => {
-  return idToken.dataUser?.idToken
-})
+

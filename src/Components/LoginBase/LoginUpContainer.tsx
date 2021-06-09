@@ -1,39 +1,35 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { sanAuthUpEmail } from '../../redux/authUp_email'
+import { registrNewProfile } from '../../redux/general'
 import { RootReducerType } from '../../redux/redux'
 import { SignUp } from './SignUp'
-import { authUsersEmail } from '../../redux/reselect'
+import { profile } from '../../redux/reselect'
 import { Redirect } from 'react-router-dom'
+import { TSdefaultProfile } from '../../redux/typesTs'
 
 class LoginUpContainer extends React.Component<LoginAllTypes> {
   render() {
-    return (this.props.isOpen ? <Redirect to={'/'} /> : <SignUp sanAuthUpEmail={this.props.sanAuthUpEmail} />)
+    return (this.props.isOpen
+    ? <Redirect to={'/'} />
+    : <SignUp registrNewProfile ={this.props.registrNewProfile } />)
   }
 }
 let mapStateToProps = (state: RootReducerType): MapStateToProps => {
   return {
-    email: state.userAuthMail.email,
-    isOpen: authUsersEmail(state).isOpen,
+    email: state.general.profile.email,
+    isOpen: profile(state).profile.isOpen,
+
   }
 }
-export default connect< MapStateToProps, MapDispath, OwnType, RootReducerType>( mapStateToProps, { sanAuthUpEmail} )( LoginUpContainer )
+export default connect< MapStateToProps, MapDispath, OwnType, RootReducerType>
+( mapStateToProps, { registrNewProfile } )( LoginUpContainer )
 
-
-
-    type AuthUpEmailTS = {
-        firstName: string,
-        lastName: string,
-        email: string,
-        password: string,
-        getInspired?: boolean
-      }
     type MapDispath = {
-        sanAuthUpEmail: (dataUser: AuthUpEmailTS ) => void
+        registrNewProfile : (dataUser: TSdefaultProfile ) => void
       }
     type MapStateToProps = {
         email: string,
-        isOpen: boolean,
+        isOpen?: boolean,
     }
     type OwnType = {}
     type LoginAllTypes = MapStateToProps & MapDispath & OwnType

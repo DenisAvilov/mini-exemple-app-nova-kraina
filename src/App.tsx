@@ -1,94 +1,87 @@
 import React from 'react'
-import './App.css'
-import BodyContainer from './Components/Body/BodyContainer'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { Route, Router, Switch } from 'react-router-dom'
+import { MuiThemeProvider } from '@material-ui/core/styles'
+import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom'
 import HeaderContainer from './Components/Header/HeaderContainer'
 import LoginContainer from './Components/LoginBase/LoginContainer'
 import LoginUpContainer from './Components/LoginBase/LoginUpContainer'
-import { RootReducerType } from './redux/redux'
-import { authUsersEmail } from './redux/reselect'
-import { connect } from 'react-redux'
-import { sanIsOpen } from './redux/auth_users_email'
-import { auth } from './API/authMail'
+import store, { RootReducerType } from './redux/redux'
+import { initRes, profile } from './redux/reselect'
+import { connect, Provider } from 'react-redux'
 import ProfileContainer from './Components/Profile/ProfileContainer'
+import { Landing } from './Components/Landing/Landing'
+import { initSuccess } from './redux/initialization'
+import { compose } from 'redux'
+import theme from './themeStyles'
+import { InfoCards } from './Components/Profile/InfoCards/InfoCards'
 
-
-const useStyles = makeStyles( (theme: Theme) => createStyles( {
-  root: {
-    position: 'relative',
-  },
-}))
-
-type AppTs = {
-  isOpen: boolean
-}
-const App: React.FC<AppTs> = (props) => {
-  const classes = useStyles()
-  let { isOpen } = props
-  // console.log('App ', isOpen)
-  return (
-    <div className={classes.root}>
-      {/* <CssBaseline /> */}
-
-
-      <Switch>
-        {isOpen
-          ? <Route exact path="/" render={ () =>
-            <React.Fragment>
-              <HeaderContainer />
-              <ProfileContainer/>
-            </React.Fragment> } />
-          : <Route exact path="/" render={ () => <React.Fragment>
-            <HeaderContainer />
-            <BodyContainer />
-          </React.Fragment>} />}
-        <Route path="/signup" render={ ()=> ( <LoginUpContainer /> )}/>
-        <Route path="/signin" render={ () => ( <LoginContainer /> )} />
-      </Switch>
-    </div>
-
-  );
-};
-
-// Class AppContainer
-class AppContainer extends React.Component<AppContainerAllTS> {
+export class App extends React.Component<AppContainerAllTS> {
   componentDidMount() {
-    // listen for auth status change
-    auth.onAuthStateChanged( (user) => {
-      if (user) {
-        this.props.sanIsOpen(true, user.uid)
-      } else {
-        this.props.sanIsOpen(false, '')
-        // console.log('out ', user )
-      }
-    })
+    this.props.initSuccess()
   }
-
 
   render() {
-    return <App isOpen={this.props.isOpen}/>
+    const {init, isOpen } = this.props
+    if (!init) return <>Завантаження...</>
+    return (
+      <Switch>
+        <Route path="/signup" render={ ()=> ( <LoginUpContainer /> )}/>
+        <Route path="/signin" render={ () => ( <LoginContainer /> )} />
+        <Route path="/infocards" render={
+          () => <InfoCards/>}/>
+
+        {isOpen ?
+        <Route exact path={['/', '/profile/:userId?']} render={
+          () => <React.Fragment> <HeaderContainer/> <ProfileContainer/>
+          </React.Fragment> } />
+        :
+        <Route exact path="/" render={
+          ()=> ( <React.Fragment> <HeaderContainer/> <Landing/>
+          </React.Fragment>)}/>
+        }
+        <Route path="*">
+          <NoMatch />
+        </Route>
+      </Switch>
+    )
   }
 }
+
+const NoMatch: React.FC<{}> = () => <div> Нема запитуваної вами сторінки</div>
 
 const mapStateToProps = (state: RootReducerType): MapStateToProps => {
   return {
-    isOpen: authUsersEmail(state).isOpen,
+    init: initRes(state).success,
+    firstName: profile(state).profile.firstName,
+    isOpen: profile(state).profile.isOpen,
   }
 }
+const AppContainer = compose<React.ComponentType>(
+    withRouter,
+    connect<MapStateToProps,
+    TDispatchProps, TSown, RootReducerType>(mapStateToProps, {initSuccess})
+)(App)
 
-export default connect<MapStateToProps, TDispatchProps, ownBodyTS, RootReducerType>(mapStateToProps, {sanIsOpen})( AppContainer )
+const URL = process.env.PUBLIC_URL || '/mini-exemple-app-nova-kraina'
+
+export const NovaKraina:React.FC = () => {
+  return <Provider store={store}>
+    <BrowserRouter basename={URL}>
+      <MuiThemeProvider theme={theme} >
+        <AppContainer />
+      </MuiThemeProvider>
+    </BrowserRouter>
+  </Provider>
+}
 
 type MapStateToProps = {
   isOpen: boolean
+  firstName: null | string
+  init: boolean
 }
 type TDispatchProps= {
-  sanIsOpen: (isOpen: boolean, uid: string) => void,
+  initSuccess: () => void
 }
-type ownBodyTS= {}
+type TSown= {
+}
+type AppContainerAllTS = MapStateToProps & TDispatchProps & TSown
 
-type AppContainerAllTS = MapStateToProps & TDispatchProps & ownBodyTS
-
-// type AppRouteTS = {}
-// const AppRoute: React.FC<AppRouteTS> = () => {
-// }

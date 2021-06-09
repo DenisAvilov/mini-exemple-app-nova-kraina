@@ -162,5 +162,5 @@ declare module '@fullpage/react-fullpage' {
   declare module '*.png';
   declare module '*.ttf';
   declare module '*.mp4';
-
+  declare module '*.svg';
 

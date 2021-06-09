@@ -1,6 +1,6 @@
-
 import axios from 'axios'
 import firebase from 'firebase'
+
 const firebaseConfig = {
   apiKey: 'AIzaSyBaErRBkUh5q1lbTgTP9fvPBlI3ZrQlnAE',
   authDomain: 'nova-kraina-social-net.firebaseapp.com',
@@ -15,22 +15,19 @@ firebase.initializeApp(firebaseConfig)
 
 export const db = firebase.database()
 export const auth = firebase.auth()
-
-// firebase.auth().currentUser.uid
 const API_KEY = 'AIzaSyBaErRBkUh5q1lbTgTP9fvPBlI3ZrQlnAE'
 const urlCustomToken = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=${API_KEY}`
-
-
 const config = {
   headers: {
     'Content-Type': 'application/json',
   },
 };
 
+
 export const authMail = {
 
+  // Вход на сайт
   addUserAuthMail: (email: string, password: string) => {
-    // sign In
     return auth.signInWithEmailAndPassword(email, password)
         .then(
             (response) => {
@@ -40,6 +37,7 @@ export const authMail = {
           return value
         })
   },
+  // Регистрация на сайте
   authUpMail: (email: string, password: string) => {
     return auth.createUserWithEmailAndPassword( email, password )
         .then((value) => {
@@ -48,7 +46,7 @@ export const authMail = {
         .catch((error) => {
           let errorCode = error.code
           let errorMessage = error.message
-          if (errorCode == 'auth/weak-password') {
+          if (errorCode === 'auth/weak-password') {
             alert('The password is too weak.')
           } else {
             alert( errorMessage)
@@ -57,23 +55,18 @@ export const authMail = {
         })
   },
   signInWithCustomToken: (token: string) => {
-    return axios.post<CustomToken>(urlCustomToken, {token, returnSecureToken: true}, config)
+    return axios.post<CustomToken>(urlCustomToken,
+        {token, returnSecureToken: true}, config)
         .then(
             (value) => {
               console.log('Response urlCustomToken ', value)
             }
-        )
+        ).catch( (error) => console.log(
+            'какая то ошибка при получении токена', error))
   },
   // logout
-  logout: () => {
-    auth.signOut().then( (el) => console.log('loqnOut ', el))
-  },
+  logout: () => auth.signOut().then(),
 }
-export enum ErrorEnumSingIn {
-  emailNotFound = 'EMAIL_NOT_FOUND',
-  invalidPassword = 'INVALID_PASSWORD',
-  userDisabled = 'INVALID_PASSWORD',
- }
 
 export type SignInError = {
    response: {
@@ -84,12 +77,10 @@ export type SignInError = {
      }
    }
 }
-
 export type DataSingIn = {
   localId: string,
   email: string,
   displayName: string,
-  idToken: string,
   registered: boolean,
   refreshToken: string,
   expiresIn: string,
@@ -105,22 +96,8 @@ export type MainResponseSingIn = {
   statusText: string,
 }
 type CustomToken = {
-  idToken: string
   refreshToken: string
   expiresIn: string
 }
 
 
-/* .catch( (error) => {
-  return error.response.data.error.message
-  /*  return error.response.data.error.message  */
-/* }
-)*/
-
-
-//  return axios.post(url, {email, password, returnSecureToken: true}, config).then(
-//   (value) => {
-//     console.log('value auth UP ', value)
-//     console.log('data User ', dataUser)
-//   }
-// )

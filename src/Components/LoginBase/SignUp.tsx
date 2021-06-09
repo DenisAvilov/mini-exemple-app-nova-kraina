@@ -1,5 +1,4 @@
 import React from 'react'
-import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
@@ -8,27 +7,14 @@ import Checkbox from '@material-ui/core/Checkbox'
 import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { Formik, Form, ErrorMessage, Field } from 'formik'
 import { NavLink } from 'react-router-dom'
 import { Logo } from '../Header/HeaderMenu'
-
-
-type LoginUpTS = {
-  sanAuthUpEmail: (dataUser: AuthUpEmailTS ) => void
-}
-
- type AuthUpEmailTS = {
-  firstName: string,
-  lastName: string,
-  email: string,
-  password: string,
-  getInspired?: boolean
-}
-
+import { TSdefaultProfile } from '../../redux/typesTs'
+import { logoDefault } from './../../img/logo.svg'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -64,20 +50,12 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(8),
   },
 }))
-//  const personSchema = yup.object({}).defined();
-const jsUcfirst = (strring: any ) => {
-  return strring?.trim()[0].toUpperCase() + strring.trim()?.slice(1)
-}
-type errorTest = {
-  lastName?: string,
-  firstName?: string,
-  email?: string,
-  password?: string
-}
+
+
 export const SignUp: React.FC<LoginUpTS> = (props: LoginUpTS) => {
-  const { sanAuthUpEmail } = props
+  const { registrNewProfile } = props
   const classes = useStyles()
-  const validate = (values: AuthUpEmailTS): {} => {
+  const validate = (values: TSdefaultProfile): {} => {
     let error: errorTest = {}
     if (!values.firstName) {
       error.firstName = 'Обов\'язкове поле';
@@ -100,11 +78,10 @@ export const SignUp: React.FC<LoginUpTS> = (props: LoginUpTS) => {
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
       error.email = 'Невірна адреса електронної пошти';
     }
-    console.log('error SignUp', error)
     return error;
   }
-  const onSubmit = (values: AuthUpEmailTS) => {
-    sanAuthUpEmail(values)
+  const onSubmit = (values: TSdefaultProfile) => {
+    registrNewProfile (values)
   }
 
   return (
@@ -116,7 +93,38 @@ export const SignUp: React.FC<LoginUpTS> = (props: LoginUpTS) => {
           Зареєструйтесь
         </Typography>
         <Formik
-          initialValues = {{firstName: '', lastName: '', email: '', password: '', getInspired: false}}
+          initialValues = {
+            { firstName: '',
+              lastName: '',
+              email: '',
+              password: '',
+              getInspired: false,
+              status: '',
+              isOpen: false,
+              teflon: {
+                vodafon: null,
+                kievstar: null,
+                life: null,
+              },
+              contact: {
+                facebook: null,
+                viber: null,
+                telegram: null,
+                tiktok: null,
+                tviter: null,
+              },
+              placeOfResidence: {
+                country: null,
+                city: null,
+                village: null,
+              },
+              photo: {
+                avatar: logoDefault,
+                avatarBgLarge: null,
+                avatarBgMini: null,
+              },
+
+            }}
           validate = {validate}
           onSubmit = { onSubmit }
         >
@@ -209,13 +217,14 @@ export const SignUp: React.FC<LoginUpTS> = (props: LoginUpTS) => {
                     </Field>
                   </Grid>
                   <Grid item xs={12}>
-                    <Field name='controlLabel'>
+                    <Field name='getInspired'>
                       {(props: any)=>{
                         return <div>
                           <FormControlLabel
                             {...props.field}
                             control={<Checkbox value="allowExtraEmails" color="primary" />}
                             label="Я хочу отримувати натхнення, маркетингові акції та оновлення електронною поштою."
+                            id="getInspired"
                           />
                         </div>
                       }}
@@ -252,15 +261,19 @@ export const SignUp: React.FC<LoginUpTS> = (props: LoginUpTS) => {
   )
 }
 
+type LoginUpTS = {
+  registrNewProfile : (dataUser: TSdefaultProfile ) => void
+}
+
+
+type errorTest = {
+  lastName?: string,
+  firstName?: string,
+  email?: string,
+  password?: string
+}
 
 // let str = "Widget";
-
 // if (~str.indexOf("Widget")) {
 //   alert( 'Совпадение есть' ); // работает
-// }
-
-
-// for (let key in values) {
-//   if (Object.prototype.hasOwnProperty.call(values, key)) {
-//   }
 // }

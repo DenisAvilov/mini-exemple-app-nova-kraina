@@ -18,7 +18,8 @@
         "semi":"off",
         "linebreak-style":"off",
         "operator-linebreak": "off",
-        "prefer-const": "off" 
+        "prefer-const": "off",
+        "func-call-spacing":"off" 
         
     }
 }

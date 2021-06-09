@@ -1,214 +1,270 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import './Profile.css'
 import { Avatar, Fab, Grid } from '@material-ui/core'
-import avatar from './../../img/avatar.png'
-import avatarBackground from './../../img/learn_main_page.jpg'
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera'
 import ProfileScrablleTabs from './ProfileScrablleTabs'
 import ProfileChangeStatus from './ProfileChangeStatus'
-import ResponsiveStatus from './ResponsiveStatus'
+import { useEffect } from 'react'
+import { TransitionsModal } from './modals/TransitionsModal'
+import RecipeReviewCard from './Posts/Post'
+import { TSdefaultProfile } from '../../redux/typesTs'
+import { Link, useRouteMatch } from 'react-router-dom'
+import { red } from '@material-ui/core/colors';
+import { databaseApi } from '../../API/DatabaseApi/Status.Api'
+import './Profile.css'
 
-
-const useStyles = makeStyles((theme: Theme) =>
-
-  createStyles({
-    root: {
-      flexGrow: 1,
-      zIndex: 10,
-    },
-    large: {
-      width: theme.spacing(7) + 100,
-      height: theme.spacing(7) + 100,
-      [theme.breakpoints.down('sm')]: {
-        width: theme.spacing(7) + 50,
-        height: theme.spacing(7) + 50,
+export const Profile: React.FC<ProfileProps> = (props: ProfileProps) => {
+  const {profile, avatarChangeSun, avatar, uid} = props
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      root: {
+        flexGrow: 1,
+        zIndex: 10,
       },
-    },
-    margin: {
-      margin: theme.spacing(1),
-    },
-    avatarBackgraund: {
-      backgroundImage: `url(${avatarBackground})`,
-      backgroundPosition: 'center',
-      backgroundSize: 'cover',
-    },
-    profile: {
-      'zIndex': 10,
-      'backgroundColor': 'burlywood',
-      'height': 'auto',
-      'paddingTop': '348px',
-      [theme.breakpoints.down('sm')]: {
-        'paddingTop': '148px',
-      },
-      '& .wrap_avatar': {
-        position: 'absolute',
-        top: 0,
-        height: '348px',
-        maxWidth: '940px',
-        borderRadius: '8px',
+      large: {
+        width: theme.spacing(7) + 100,
+        height: theme.spacing(7) + 100,
         [theme.breakpoints.down('sm')]: {
-          height: '148px',
+          width: theme.spacing(7) + 50,
+          height: theme.spacing(7) + 50,
         },
       },
-      '& .avatar': {
-        position: 'relative',
-        bottom: '-10px',
+      margin: {
+        margin: theme.spacing(1),
       },
-      '& .change_avatar': {
-        position: 'absolute',
-        right: '-11px',
-        bottom: '-10px',
-        [theme.breakpoints.down('sm')]: {
+      avatarBackgraund: {
+        'backgroundImage': `url(${avatar})`,
+        'backgroundPosition': 'center',
+        'backgroundSize': 'cover',
 
-        },
       },
-      '& .full_name': {
-        'height': '118.4px',
-        'backgroundColor': 'hotpink',
-        'boxSizing': 'border-box',
-        '& article': {
-          textAlign: 'center',
-        },
-      },
-      '& .scrablle_tabs': {
-        height: '60px',
-        backgroundColor: 'maroon',
-        maxWidth: '940px',
+      profile: {
+        'zIndex': 10,
+        'backgroundColor': '#e7e7e7',
+        'paddingTop': '65px',
         [theme.breakpoints.down('sm')]: {
+          'paddingTop': '65px',
         },
-      },
-      '& .posts': {
-        '& .posts_information_wrap_block': {
+        '& .wrap_avatar': {
+          'position': 'relative',
+          'zIndex': 200,
+          'top': 0,
+          'maxWidth': '940px',
+          'height': 400,
+          'borderRadius': '8px',
           [theme.breakpoints.down('sm')]: {
-            backgroundColor: 'red',
-            marginLeft: theme.spacing(1),
-            marginRight: theme.spacing(1),
+
           },
-          [theme.breakpoints.down('xs')]: {
-            'backgroundColor': 'orange',
+        },
+        '& .wrap_avatar::after': {
+          position: 'absolute',
+          content: '""',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: '#000000',
+          zIndex: 10,
+          opacity: '0.5',
+          borderRadius: '8px',
+        },
+        '& .avatar': {
+          position: 'relative',
+          zIndex: '4000',
+          bottom: '-10px',
+        },
+        '& .change_avatar': {
+          position: 'absolute',
+          right: '-11px',
+          bottom: '-10px',
+          [theme.breakpoints.down('sm')]: {
+
           },
-          width: '100%',
-          backgroundColor: 'gold',
-          height: '250px',
-          marginBottom: '10px',
         },
-        'maxWidth': '940px',
-        'backgroundColor': 'rad',
-        'height': '770px',
-        'overflow': 'hidden',
-        [theme.breakpoints.down('sm')]: {
-          height: '1000px',
-          backgroundColor: 'black',
-        },
-        [theme.breakpoints.down('xs')]: {
-          height: 'auto',
-          backgroundColor: 'blue',
-        },
-        '& .profile_posts_your_wrap': {
-          'overflowX': 'auto',
-          'maxHeight': '770px',
-          'backgroundColor': 'darkgreen',
+        '& .full_name': {
+          'backgroundColor': '#cecece',
+          'border': '1px solid #9b9b9b',
+          'maxWidth': '940px',
           'boxSizing': 'border-box',
-          '& .posts_your_wrap_block': {
-            width: '100%',
-            height: '300px',
-            backgroundColor: 'brown',
-            marginBottom: '10px',
+          'position': 'relative',
+          'borderRadius': 8,
+          'padding': '15px 20px',
+          'zIndex': 2,
+          'marginBottom': 15,
+          '& article': {
+            textAlign: 'center',
+          },
+        },
+        '& .scrablle_tabs': {
+          maxWidth: '940px',
+          marginBottom: 15,
+          [theme.breakpoints.down('sm')]: {
+          },
+        },
+        '& .posts': {
+          '& .posts_information_wrap_block': {
             [theme.breakpoints.down('sm')]: {
+              // backgroundColor: 'red',
               marginLeft: theme.spacing(1),
               marginRight: theme.spacing(1),
             },
             [theme.breakpoints.down('xs')]: {
-              'backgroundColor': 'orange',
+              // 'backgroundColor': 'orange',
+            },
+            width: '100%',
+            backgroundColor: '#cecece',
+            minHeight: '250px',
+            marginBottom: '10px',
+          },
+          'maxWidth': '940px',
+          'minHeight': '770px',
+          'overflow': 'hidden',
+          [theme.breakpoints.down('sm')]: {
+            // backgroundColor: 'black',
+          },
+          [theme.breakpoints.down('xs')]: {
+            // backgroundColor: 'blue',
+          },
+          '& .profile_posts_your_wrap': {
+            'overflowX': 'auto',
+            'maxHeight': '770px',
+            // 'backgroundColor': 'darkgreen',
+            'boxSizing': 'border-box',
+            '& .posts_your_wrap_block': {
+              minHeight: '300px',
+              marginBottom: '10px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              [theme.breakpoints.down('sm')]: {
+                marginLeft: 'auto',
+                marginRight: 'auto',
+              },
+              [theme.breakpoints.down('xs')]: {
+                // 'backgroundColor': 'orange',
+              },
             },
           },
         },
       },
-    },
-    profilePostsInformationWrap: {
-      backgroundColor: 'blueviolet',
-    },
-    h1: {
-      marginTop: '5px',
-      marginBottom: '5px',
-    }
-  }),
-);
-
-export const Profile: React.FC< ProfileTs > = (props: ProfileTs) => {
+      profilePostsInformationWrap: {
+        // backgroundColor: 'blueviolet',
+      },
+      h1: {
+        marginTop: '5px',
+        marginBottom: '5px',
+      },
+      titleColor: {
+        color: red[500],
+      },
+    }),
+  );
   const classes = useStyles();
-  let {fullName, status} = props
-
-  let [realStatus, statusUseState] = useState(status)
+  // Count max lens status
   let [statusCount, statusUseCount] = useState(true)
   const onClickStatus = () =>{
     statusUseCount( !statusCount )
   }
-  const onBlurStatus = () => {
-    statusUseCount( !statusCount )
-  }
- 
+  // Status data from the server
+  let [status, statusFn] = useState(profile.status)
   useEffect(() => {
-    if (realStatus != status) {
-      statusUseState(status)
-    }
-  }, [status])
+    databaseApi()
+        .status()
+        .then((snapshot) => {
+          statusFn(snapshot.status)
+        })
+  }, [statusCount])
+  let [open, setOpen] = useState(false);
+  let match = useRouteMatch();
+  const flagHandleOpen = () => {
+    setOpen(!open);
+  };
+
+  const post = new Array(1)
+      .fill('')
+      .map( (_, index) => <div key={index} className="posts_your_wrap_block"><RecipeReviewCard/></div>)
+
+
   return (
     <React.Fragment>
       <Grid className={classes.profile} container
         direction="column"
         justify="center"
         alignItems="center" >
-        <Grid className={ classes.avatarBackgraund + ' wrap_avatar'}
+        <Grid className={ classes.avatarBackgraund + ' wrap_avatar' }
           container direction="column"
           justify="flex-end"
           alignItems="center" >
           <div className="avatar">
-            <Avatar alt="Denis Avilov" src={avatar}
+            <Avatar alt="A" src={`${avatar}`}
               className={classes.large}
             />
-            <Fab size="small" color="inherit" className={classes.margin + ` change_avatar`}>
+            <Fab size="small" color="inherit"
+              className={classes.margin + ` change_avatar`}
+              onClick={flagHandleOpen}>
               <PhotoCameraIcon color="inherit"/>
             </Fab>
-
           </div>
+          { open &&
+           <TransitionsModal
+             openProps={open}
+             flagHandleOpen={flagHandleOpen}
+             avatarChangeSun={avatarChangeSun}
+             uid={uid}/>}
         </Grid>
+        {/* begin Status UI */}
         <Grid className="full_name" container direction="column"
           justify="center"
           alignItems="center">
           <article>
-            <h1 className={classes.h1}>{fullName}</h1>
+            <h1 className={classes.h1}>{profile.firstName + ' ' + profile.lastName}</h1>
           </article>
-          {statusCount && <div onClick={onClickStatus}> {realStatus} </div>}
-          {!statusCount && <ResponsiveStatus setOpens={!statusCount} onBlurStatus={onBlurStatus} realStatus={realStatus}/> }
-          {/* <ProfileChangeStatus realStatus={realStatus} onBlurStatus={onBlurStatus} statusUseState={statusUseState}/> */}
+          {statusCount && <div onClick={onClickStatus}> {status} </div>}
+          {!statusCount && <ProfileChangeStatus
+            realStatus={status} onBlur={onClickStatus}/> }
         </Grid>
+        {/* The End Status UI */}
         <Grid className="scrablle_tabs" container>
           <ProfileScrablleTabs />
         </Grid>
         <Grid className="posts " container spacing={2}
           justify="space-between"
           alignItems="flex-start" >
-          <Grid className={classes.profilePostsInformationWrap} item xs={12} sm={4} md={5} container alignItems="flex-start" >
-            <div className="posts_information_wrap_block"></div>
-            <div className="posts_information_wrap_block"></div>
-            <div className="posts_information_wrap_block"></div>
+          <Grid className={classes.profilePostsInformationWrap}
+            item xs={12} sm={4} md={5} container alignItems="flex-start" >
+
+            {/* <Link to={`${match.url}infocards`}>InfoCards</Link> */}
+            <div className="posts_information_wrap_block">
+              <h2 className={classes.titleColor}>На якій стадії проект</h2>
+              <hr/>
+              Зараз в прототипі социальній мережі можливе зробити наступне:
+              <ul>
+                <li>Зарееструватсь</li>
+                <li>Оновивити фото профіля</li>
+                <li>Зминити статус</li>
+              </ul>
+            </div>
           </Grid>
-          <Grid className="profile_posts_your_wrap" item xs={12} sm={8} md={7} container
+          <Grid className="profile_posts_your_wrap"
+            item xs={12} sm={8} md={7} container
             justify="flex-start"
             alignItems="center">
-            <div className="posts_your_wrap_block">a</div>
-            <div className="posts_your_wrap_block">b</div>
-            <div className="posts_your_wrap_block">c</div>
-            <div className="posts_your_wrap_block">d</div>
+
+            {post}
           </Grid>
         </Grid>
       </Grid>
     </React.Fragment>
   )
 }
-type MapStateToPropsTS = {fullName: string, status: string}
-type DispatchPropsTS = {}
-type OwnStateTS = {}
-type ProfileTs = DispatchPropsTS & OwnStateTS & MapStateToPropsTS
+type MapStateToPropsTS = {
+  profile: TSdefaultProfile
+  avatar?: null | string | File | undefined
+  uid: string
+}
+type DispatchPropsTS = {
+  avatarChangeSun: (fileUse: File, uid: string) => void
+}
+type OwnStateTS = {
+  flagHandleOpen?: () => void
+}
+type ProfileProps = DispatchPropsTS & OwnStateTS & MapStateToPropsTS
