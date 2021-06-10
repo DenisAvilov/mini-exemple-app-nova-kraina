@@ -24,6 +24,7 @@ import React from 'react'
 import Fab from '@material-ui/core/Fab'
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 import ArrowForward from '@material-ui/icons/ArrowForward'
+import { Link } from 'react-router-dom'
 const titleFonts = 'Yeseva One , cursive'
 const titleDopus = 'Caveat, cursive'
 
@@ -56,6 +57,7 @@ const useStyles = makeStyles( (theme: Theme) => createStyles(
     },
     titleFonts: {
       fontFamily: titleFonts,
+      paddingTop: 35,
       fontSize: '77px',
       fontWeight: 700,
       letterSpacing: '3px',
@@ -129,7 +131,7 @@ const useStyles = makeStyles( (theme: Theme) => createStyles(
       },
     },
     myTypography: {
-      fontWeight: theme.typography.fontWeightBold,
+      // fontWeight: theme.typography.fontWeightBold,
       textShadow: '1px 1px 1px black',
       fontSize: '1.2rem',
       color: '#cecece',
@@ -567,12 +569,12 @@ export const Landing: React.FC<TSlanding> = (props:TSlanding) => {
                     Приєднатись до групи
                         </Fab>
                       </a>
-                      <a href="/#signup" className={classes.a}>
+                      <Link to='/signup' className={classes.a}>
                         <Fab variant="extended" color="primary"
                           aria-label="add" className={classes.margin} >
                           {'Зареєструватись у мережі'}
                         </Fab>
-                      </a>
+                      </Link>
                     </Grid>
 
                   </Grid>
@@ -631,10 +633,11 @@ export const Landing: React.FC<TSlanding> = (props:TSlanding) => {
                           <a href='https://www.facebook.com/novakraina.pp.ua' className={classes.a}> Smart Ukraine </a>
 
                           <br/> <br/>
-                          А також <a href="/#signup"
-                            className={classes.a} data-anchor="singup">
+                          А також
+                          <Link to='/signup' className={classes.a} data-anchor="singup">
                             {'реєструйтесь на цьому сайті'}
-                          </a>, цей ресурс буде міні прототипом мережі
+                          </Link>
+                          , цей ресурс буде міні прототипом мережі
                           <br/> <br/>
                           Величезна подяка свідомим Українцям які
                           надихають та відчиняють завісу масової безсвідомості,
