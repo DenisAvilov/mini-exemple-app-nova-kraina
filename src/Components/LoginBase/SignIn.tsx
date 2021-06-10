@@ -18,7 +18,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="http://localhost:3000/">
+      <Link color="inherit" href="https://denisavilov.github.io/cv-developer/">
         Nova Ukraina
       </Link>{' '}
       {new Date().getFullYear()}

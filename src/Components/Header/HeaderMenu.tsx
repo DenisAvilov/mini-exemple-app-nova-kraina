@@ -20,13 +20,15 @@ import { CardMedia } from '@material-ui/core'
 import { ListItemAvatar } from '@material-ui/core'
 import { TSdefaultProfile } from '../../redux/typesTs'
 
+
+
+
 export const HeaderMenu: React.FC<propsType> = (props: propsType) => {
   const {profile} = props
   const classes = useStyles()
   const [state, setState] = React.useState({
     right: false,
   })
-
   const toggleDrawer = (anchor: Anchor, open: boolean) => (
       event: React.KeyboardEvent | React.MouseEvent,
   ) => {
@@ -102,7 +104,9 @@ export const HeaderMenu: React.FC<propsType> = (props: propsType) => {
     </div>
   )
   return (
-    <Grid container alignItems={'center'} className={classes.root}>
+    <Grid container alignItems={'center'} className={`${profile.isOpen
+      ? classes.absolute
+      : classes.fixed} ${ ' ' + classes.root}`}>
       <Grid item sm xs container alignItems="center" className={classes.wrapLogo}>
         <Grid item >
           <Logo />
@@ -134,22 +138,25 @@ export const HeaderMenu: React.FC<propsType> = (props: propsType) => {
     </Grid>
   )
 }
+
 const useStyles = makeStyles( (theme: Theme) => createStyles( {
   root: {
     height: 60,
-    padding: '10px 0',
     backgroundColor: theme.palette.background.default,
     left: 0,
-    position: 'absolute',
     top: 0,
     zIndex: 1000,
-    flexWrap: 'nowrap',
+    position: `fixed`,
     overflow: 'hidden',
     textAlign: 'center',
     [theme.breakpoints.down('lg')]: {
       padding: '0 10px',
     },
   },
+  absolute: {
+    position: 'absolute'},
+  fixed: {
+    position: 'fixed'},
   ulMenu: {
     'flexWrap': 'nowrap',
     'display': 'flex',
@@ -206,6 +213,7 @@ const useStyles = makeStyles( (theme: Theme) => createStyles( {
     marginLeft: 'auto',
   },
 }))
+
 export const Logo: React.FC<any> = (props: any) => {
   const classes = useStyles()
   return (
@@ -216,7 +224,6 @@ export const Logo: React.FC<any> = (props: any) => {
     </NavLink>
   )
 }
-
 type Anchor = 'right'
 type propsType = {
   isOpen?: boolean
